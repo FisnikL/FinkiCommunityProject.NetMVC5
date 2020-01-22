@@ -75,7 +75,7 @@ namespace FinkiCommunity.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = await SignInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -149,12 +149,28 @@ namespace FinkiCommunity.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser {
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    UserName = model.UserName,
+                    Email = model.Email,
+                    Gender = model.Gender,
+                    Birthdate = DateTime.Now.Date
+                };
+
+                // Do not allow duplicate Usernames
+                //var userWithUsername = UserManager.Users.Any(u => u.UserName == model.UserName);
+
+
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    // LET EVERY USER HAVE USER ROLE BY DEFAULT
+                    UserManager.AddToRole(user.Id, RoleName.User);
+
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
@@ -439,7 +455,8 @@ namespace FinkiCommunity.Controllers
         {
             foreach (var error in result.Errors)
             {
-                ModelState.AddModelError("", error);
+                // THE WORST SOLUTION :(
+                ModelState.AddModelError("", error.Replace("Name", "Username"));
             }
         }
 
