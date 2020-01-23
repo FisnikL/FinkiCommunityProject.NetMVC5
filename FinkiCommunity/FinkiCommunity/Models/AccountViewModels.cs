@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web;
 
 namespace FinkiCommunity.Models
 {
@@ -98,6 +99,9 @@ namespace FinkiCommunity.Models
 
         [Required]
         public string Gender { get; set; }
+
+        //[Display(Name = "Profile Picture")]
+        //public HttpPostedFileBase ProfilePicture { get; set; }
 
     }
 

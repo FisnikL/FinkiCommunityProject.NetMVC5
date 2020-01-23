@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using FinkiCommunity.Models;
+using System.IO;
 
 namespace FinkiCommunity.Controllers
 {
@@ -152,6 +153,7 @@ namespace FinkiCommunity.Controllers
 
             if (ModelState.IsValid)
             {
+                // string profilePictureUrl = AddProfileImage(model.ProfilePicture);
                 var user = new ApplicationUser {
                     FirstName = model.FirstName,
                     LastName = model.LastName,
@@ -187,6 +189,19 @@ namespace FinkiCommunity.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+
+        //private string AddProfileImage(HttpPostedFileBase profilePicture)
+        //{
+        //    string fileName = Path.GetFileNameWithoutExtension(profilePicture.FileName);
+        //    string extension = Path.GetExtension(profilePicture.FileName);
+        //    fileName = fileName + DateTime.Now.ToString("") + extension;
+        //    string ProfilePicturePath = "~/Content/profile-images" + fileName;
+        //    fileName = Path.Combine(Server.MapPath("~/Content/profile-images"), fileName);
+
+        //    profilePicture.SaveAs(fileName);
+
+        //    return fileName;
+        //}
 
         //
         // GET: /Account/ConfirmEmail

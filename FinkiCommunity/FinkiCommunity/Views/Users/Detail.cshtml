@@ -1,4 +1,4 @@
-﻿@model FinkiCommunity.Models.ApplicationUser
+﻿@model FinkiCommunity.Models.UserDetailModel
 
 @{
     ViewBag.Title = "Detail";
@@ -6,23 +6,36 @@
 
 <h2>Detail</h2>
 
-<div class="user-container">
+<div class="user-detail">
     <div>
+        <img src="@Url.Content(Model.ProfilePictureUrl)" width="100px" height="100px" />
+    </div>
+    <div style=" height: 50px;">
         @Model.UserName
     </div>
-    <div>
+    <div style="height: 50px;">
         @Model.FirstName
     </div>
-    <div>
+    <div style="height: 50px;">
         @Model.LastName
     </div>
-    <div>
+    <div style="height: 50px;">
         @Model.Email
     </div>
-    <div>
+    <div style="height: 50px;">
         @Model.Gender
     </div>
-    <div>
+    <div style="height: 50px;">
         @Model.Birthdate
     </div>
+    <div>
+        @Model.Role
+    </div>
+</div>
+
+<div>
+    @if (Model.IsHisHerProfile)
+    {
+        @Html.ActionLink("Edit", "Edit", "Users", new { id = Model.UserName }, null)
+    }
 </div>
