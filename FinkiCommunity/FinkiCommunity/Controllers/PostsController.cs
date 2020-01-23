@@ -1,8 +1,10 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using FinkiCommunity.Models;
+using Microsoft.AspNet.Identity;
 
 namespace FinkiCommunity.Controllers
 {
@@ -13,7 +15,7 @@ namespace FinkiCommunity.Controllers
         // GET: Posts
         public ActionResult Index()
         {
-            return View(db.Posts.ToList());
+            return View(db.Posts.Include(p => p.UserOwner).ToList());
         }
 
         // GET: Posts/Details/5
@@ -23,7 +25,7 @@ namespace FinkiCommunity.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Post post = db.Posts.Find(id);
+            Post post = db.Posts.Include(p => p.UserOwner).Where(p => p.Id == id).First();
             if (post == null)
             {
                 return HttpNotFound();
@@ -31,6 +33,7 @@ namespace FinkiCommunity.Controllers
             return View(post);
         }
 
+        [Authorize]
         // GET: Posts/Create
         public ActionResult Create()
         {
@@ -42,12 +45,18 @@ namespace FinkiCommunity.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Title,Content,Created,NumberOfLikes,NumberOfReplies")] Post post)
+        public ActionResult Create([Bind(Include = "Title,Content")] Post post)
         {
             if (ModelState.IsValid)
             {
+                post.Created = DateTime.Now;
+                post.NumberOfLikes = 0;
+                post.NumberOfReplies = 0;
+                post.UserOwner = db.Users.Find(User.Identity.GetUserId());
+
                 db.Posts.Add(post);
                 db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
 

@@ -3,7 +3,7 @@ namespace FinkiCommunity.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialMigration : DbMigration
+    public partial class InitalMigratin : DbMigration
     {
         public override void Up()
         {
@@ -12,13 +12,9 @@ namespace FinkiCommunity.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Code = c.String(),
-                        Name = c.String(),
-                        CourseDescription = c.String(),
-                        StudyYear = c.String(),
-                        Semester = c.String(),
-                        Programs = c.String(),
-                        CourseType = c.String(),
+                        CourseCode = c.String(nullable: false),
+                        CourseName = c.String(nullable: false),
+                        CourseDescription = c.String(nullable: false),
                         NumberOfPosts = c.Int(nullable: false),
                         NumberOfReplies = c.Int(nullable: false),
                     })

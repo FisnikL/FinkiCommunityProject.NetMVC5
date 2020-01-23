@@ -1,0 +1,28 @@
+﻿@model FinkiCommunity.Models.ApplicationUser
+
+@{
+    ViewBag.Title = "Detail";
+}
+
+<h2>Detail</h2>
+
+<div class="user-container">
+    <div>
+        @Model.UserName
+    </div>
+    <div>
+        @Model.FirstName
+    </div>
+    <div>
+        @Model.LastName
+    </div>
+    <div>
+        @Model.Email
+    </div>
+    <div>
+        @Model.Gender
+    </div>
+    <div>
+        @Model.Birthdate
+    </div>
+</div>

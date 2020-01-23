@@ -26,6 +26,9 @@
         <th>
             @Html.DisplayNameFor(model => model.NumberOfReplies)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserOwner.UserName)
+        </th>
         <th></th>
     </tr>
 
@@ -45,6 +48,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.NumberOfReplies)
+        </td>
+        <td>
+            @Html.ActionLink(item.UserOwner.UserName, "Detail", "Users", new { id = item.UserOwner.UserName}, null)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

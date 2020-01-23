@@ -35,6 +35,14 @@
         </dd>
 
         <dt>
+            @Html.DisplayNameFor(model => model.UserOwner.UserName)
+        </dt>
+
+        <dd>
+            @Html.ActionLink(Model.UserOwner.UserName, "Detail", "Users", new { id = Model.UserOwner.UserName}, null)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.NumberOfLikes)
         </dt>
 

@@ -1,0 +1,50 @@
+﻿@model IEnumerable<FinkiCommunity.Models.ApplicationUser>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Users</h2>
+
+<div id="users-container">
+    <div class="user-container">
+        <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.UserName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.FirstName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.LastName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Email)
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var user in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.ActionLink(user.UserName, "Detail", new { id = user.UserName })
+                            </td>
+                            <td>
+                                @user.FirstName
+                            </td>
+                            <td>
+                                @user.LastName
+                            </td>
+                            <td>
+                                @user.Email
+                            </td>
+                        </tr>
+                    }
+                 </tbody>
+        </table>
+    </div>
+</div>
+

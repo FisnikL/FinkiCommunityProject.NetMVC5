@@ -10,7 +10,9 @@ namespace FinkiCommunity
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js",
-                        "~/Scripts/jquery-ui-1.12.1.js"
+                        "~/Scripts/jquery-ui-1.12.1.js",
+                        "~/Scripts/DataTables/jquery.dataTables.js",
+                        "~/Scripts/DataTables/dataTables.bootstrap"
                         ));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
@@ -27,7 +29,8 @@ namespace FinkiCommunity
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
-                      "~/Content/themes/base/jquery - ui.css"
+                      "~/Content/themes/base/jquery - ui.css",
+                      "~/Content/DataTables/css/dataTables.bootstrap.css"
                       ));
         }
     }

@@ -13,6 +13,9 @@ namespace FinkiCommunity.Models
         public string LastName { get; set; }
         public DateTime Birthdate { get; set; }
         public string Gender { get; set; }
+        public string ProfilePictureUrl { get; set; }
+
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -37,5 +40,9 @@ namespace FinkiCommunity.Models
         public System.Data.Entity.DbSet<FinkiCommunity.Models.Group> Groups { get; set; }
 
         public System.Data.Entity.DbSet<FinkiCommunity.Models.Post> Posts { get; set; }
+
+        public System.Data.Entity.DbSet<FinkiCommunity.Models.StudyProgram> StudyPrograms { get; set; }
+
+        //public System.Data.Entity.DbSet<FinkiCommunity.Models.ApplicationUser> ApplicationUsers { get; set; }
     }
 }
