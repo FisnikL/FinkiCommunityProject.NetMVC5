@@ -25,6 +25,7 @@ namespace FinkiCommunity.Controllers
                 .Include(p => p.UserOwner)
                 .Include(p => p.Group)
                 .Include(p => p.Replies)
+                .Include("Replies.UserOwner")
                 .Where(p => p.Id == id).First();
 
             if (post == null)

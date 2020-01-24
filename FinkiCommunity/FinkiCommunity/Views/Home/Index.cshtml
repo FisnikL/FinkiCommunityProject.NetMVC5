@@ -6,9 +6,12 @@
 
 <div style="display: flex; justify-content: space-between;">
     <div id="groups-container" style="width: 200px; margin-top: 50px; border: 2px solid red; padding: 10px; flex-grow: 1">
+        <div>
+            GROUPS:
+        </div>
         @foreach (var homeGroup in Model.HomeGroups)
         {
-            <div style="display: flex;">
+            <div style="display: flex; border: 1px solid red; margin: 10px; padding: 10px;">
                 <div style="margin-right: 5px">
                     <div style="width: 50px; height: 50px">
                         <a href=@("/Groups/Posts/" + @homeGroup.CourseCode)>
@@ -19,7 +22,7 @@
                         </a>
                     </div>
                 </div>
-                <div style="border: 1px solid green; margin-bottom: 10px;">
+                <div style="margin-bottom: 10px;">
                     <a href="@("/Groups/Posts/" + homeGroup.CourseCode)">
                         <div class="homeGroupName">
                             @homeGroup.CourseName
@@ -28,20 +31,24 @@
                             @homeGroup.CourseDescription
                         </div>
                     </a>
+                </div>
             </div>
-        </div>
         }
     </div>
+    
     <div id="posts-container" style="border: 1px solid black; width: 200px; margin-top: 50px; flex-grow: 10">
+        <div style="padding-left: 20px; padding-top: 20px">
+            <b>LATEST POSTS:</b>
+        </div>
         @foreach (var homePost in Model.HomePosts)
         {
 
-            <div style="border: 1px solid green; margin-bottom: 10px;">
+            <div style="border: 1px solid green; margin: 20px; padding: 20px">
                 <div class="belongsToGroup">
                     Group: @Html.ActionLink(homePost.Group.CourseName, "Posts", "Groups", new { id = homePost.Group.CourseCode }, null)
                 </div>
                 <div class="homePostTitle">
-                    Title: @Html.ActionLink(homePost.Title, "Details", "Posts", new {id = homePost.Id}, null)
+                    Title: @Html.ActionLink(homePost.Title, "Details", "Posts", new { id = homePost.Id }, null)
                 </div>
                 <div class="homeGroupName">
                     Content: @homePost.Content
@@ -50,27 +57,27 @@
                     Created: @homePost.Created
                 </div>
                 <div>
-                    <button>LIKE</button>
-                    <span>@homePost.NumberOfLikes</span>
+                    <button>@(homePost.NumberOfLikes + " Likes")</button>
                 </div>
                 <div>
-                    <button>@homePost.NumberOfReplies @Html.ActionLink(homePost.NumberOfReplies == 1 ? "Reply" : "Replies", "Details", "Posts", new { id = homePost.Id}, null)</button>
+                    <button>@Html.ActionLink(homePost.NumberOfReplies + " " + (homePost.NumberOfReplies == 1 ? "Reply" : "Replies"), "Details", "Posts", new { id = homePost.Id }, null)</button>
                 </div>
                 <div style="display: flex">
                     <div>
                         @if (homePost.UserOwner.ProfilePictureUrl != null)
                         {
-                        <a href="@("/Users/Details/" + homePost.UserOwner.UserName)">
-                            <img src="@Url.Content(homePost.UserOwner.ProfilePictureUrl)" width="50" height="50" />
-                        </a>
+                            <a href="@("/Users/Details/" + homePost.UserOwner.UserName)">
+                                <img src="@Url.Content(homePost.UserOwner.ProfilePictureUrl)" width="50" height="50" />
+                            </a>
                         }
                     </div>
                     <div>
                         Posted by: @Html.ActionLink(homePost.UserOwner.UserName, "Details", "Users", new { id = homePost.UserOwner.UserName }, null)
                     </div>
                 </div>
-                
-                @if(User.Identity.IsAuthenticated && (User.IsInRole(FinkiCommunity.Models.RoleName.Admin) || User.IsInRole(FinkiCommunity.Models.RoleName.Moderator))){
+
+                @if (User.Identity.IsAuthenticated && (User.IsInRole(FinkiCommunity.Models.RoleName.Admin) || User.IsInRole(FinkiCommunity.Models.RoleName.Moderator)))
+                {
                     <button class="btn btn-danger js-delete">DELETE POST</button>
                 }
             </div>

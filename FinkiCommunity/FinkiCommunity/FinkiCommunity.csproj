@@ -221,6 +221,10 @@
     <Compile Include="Migrations\202001241708067_Reply model changed.Designer.cs">
       <DependentUpon>202001241708067_Reply model changed.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202001241713364_add reply model.cs" />
+    <Compile Include="Migrations\202001241713364_add reply model.Designer.cs">
+      <DependentUpon>202001241713364_add reply model.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Enums\Enums.cs" />
@@ -237,6 +241,7 @@
     <Compile Include="Models\Post\NewPostModel.cs" />
     <Compile Include="Models\Post\Post.cs" />
     <Compile Include="Models\Post\PostDetailsModel.cs" />
+    <Compile Include="Models\Reply\NewReplyModel.cs" />
     <Compile Include="Models\Reply\Reply.cs" />
     <Compile Include="Models\RoleName.cs" />
     <Compile Include="Models\StudyProgram\StudyProgram.cs" />
@@ -647,6 +652,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202001241708067_Reply model changed.resx">
       <DependentUpon>202001241708067_Reply model changed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001241713364_add reply model.resx">
+      <DependentUpon>202001241713364_add reply model.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

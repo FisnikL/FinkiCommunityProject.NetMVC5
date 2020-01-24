@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using FinkiCommunity.Models;
+using Microsoft.AspNet.Identity;
 
 namespace FinkiCommunity.Controllers
 {
@@ -35,27 +35,49 @@ namespace FinkiCommunity.Controllers
             return View(reply);
         }
 
+        [Authorize]
         // GET: Replies/Create
-        public ActionResult Create()
+        public ActionResult Create(int id)
         {
+            Post post = db.Posts
+                .Include(p => p.UserOwner)
+                .Where(p => p.Id == id)
+                .First();
+
+            ViewBag.Post = post;
+            ViewBag.PostId = post.Id;
+
             return View();
         }
 
         // POST: Replies/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Content,Created,NumberOfLikes")] Reply reply)
+        public ActionResult Create([Bind(Include = "PostId,Content")] NewReplyModel newReplyModel)
         {
             if (ModelState.IsValid)
             {
+                Post post = db.Posts.Find(newReplyModel.PostId);
+
+                Reply reply = new Reply()
+                {
+                    Content = newReplyModel.Content,
+                    Created = DateTime.Now,
+                    NumberOfLikes = 0,
+                    UserOwner = db.Users.Find(User.Identity.GetUserId()),
+                    ToPost = post
+                };
+
+                post.NumberOfReplies++;
+
                 db.Replies.Add(reply);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Posts", new { id = newReplyModel.PostId });
             }
 
-            return View(reply);
+            //return View(reply);
+            return View();
         }
 
         // GET: Replies/Edit/5

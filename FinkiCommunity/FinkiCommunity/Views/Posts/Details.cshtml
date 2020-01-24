@@ -19,25 +19,25 @@
     </div>
     
     <div style="margin-top: 20px">
-        <button class="btn btn-default">REPLY</button>
+        @Html.ActionLink("REPLY", "Create", "Replies", new { id = Model.Id}, new { @class = "btn btn-default" })
     </div>
 
     </>
     <div style="margin-top: 20px">
-        <div>@Model.NumberOfReplies Replies</div>
+        <div style="margin-bottom: 10px">There are: @Model.NumberOfReplies Replies</div>
         @foreach(var reply in Model.Replies)
         {
-        <div>
-            <div>Content: @Model.Content</div>
-            <div>Created: @Model.Created</div>
-            <div>NumberOfLikes: @Model.NumberOfLikes</div>
+        <div style="margin:20px; padding-left: 50px">
+            <div>Content: @reply.Content</div>
+            <div>Created: @reply.Created</div>
+            <div>NumberOfLikes: @reply.NumberOfLikes</div>
             <div>User: @Html.ActionLink(reply.UserOwner.UserName, "Details", "Users", new { id = reply.UserOwner.UserName }, null)</div>
         </div>
         }
     </div>
     
 </div>
-<p>
+@*<p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
-</p>
+</p>*@
