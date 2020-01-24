@@ -16,24 +16,24 @@ namespace FinkiCommunity.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        //// GET: api/GroupsApi
-        //public IQueryable<Group> GetGroups()
-        //{
-        //    return db.Groups;
-        //}
+        // GET: api/GroupsApi
+        public IQueryable<Group> GetGroups()
+        {
+            return db.Groups;
+        }
 
-        //// GET: api/GroupsApi/5
-        //[ResponseType(typeof(Group))]
-        //public IHttpActionResult GetGroup(int id)
-        //{
-        //    Group group = db.Groups.Find(id);
-        //    if (group == null)
-        //    {
-        //        return NotFound();
-        //    }
+        // GET: api/GroupsApi/5
+        [ResponseType(typeof(Group))]
+        public IHttpActionResult GetGroup(int id)
+        {
+            Group group = db.Groups.Find(id);
+            if (group == null)
+            {
+                return NotFound();
+            }
 
-        //    return Ok(group);
-        //}
+            return Ok(group);
+        }
 
         //// PUT: api/GroupsApi/5
         //[ResponseType(typeof(void))]
