@@ -50,7 +50,8 @@ namespace FinkiCommunity.Controllers
         [HttpPost]
         public ActionResult SearchGroups(string term)
         {
-
+            //return View();
+            return RedirectToAction("Index");
         }
     }
 }
