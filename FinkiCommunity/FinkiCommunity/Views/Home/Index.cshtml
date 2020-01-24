@@ -8,20 +8,42 @@
     <div id="groups-container" style="width: 200px; margin-top: 50px; border: 2px solid red; padding: 10px; flex-grow: 1">
         @foreach (var homeGroup in Model.HomeGroups)
         {
-            <div style="border: 1px solid green; margin-bottom: 10px;">
-                <div class="homeGroupCode">
-                    @homeGroup.CourseCode
-                </div>
-                <div class="homeGroupName">
-                    @homeGroup.CourseName
-                </div>
-                <div class="homeGroupDescription">
-                    @homeGroup.CourseDescription
-                </div>
-            </div>
+
+                <div style="border: 1px solid green; margin-bottom: 10px;">
+                    <div class="homeGroupName">
+                        @Html.ActionLink(homeGroup.CourseName, "Posts", "Groups", new { id = homeGroup.CourseCode }, null)
+                    </div>
+                    <div class="homeGroupDescription">
+                        @homeGroup.CourseDescription
+                    </div>
+                    @*<div>
+                        @Html.ActionLink("Show Posts", "GroupPosts", new { homeGroup.CourseCode})
+                    </div>*@  
+                </div>  
         }
     </div>
     <div id="posts-container" style="border: 1px solid black; width: 200px; margin-top: 50px; flex-grow: 10">
-        
+        @foreach (var homePost in Model.HomePosts)
+        {
+
+            <div style="border: 1px solid green; margin-bottom: 10px;">
+                <div class="homePostTitle">
+                    @Html.ActionLink(homePost.Title, "Details", "Posts", new {id = homePost.Id}, null)
+                </div>
+                <div class="homeGroupName">
+                    @homePost.Content
+                </div>
+                <div class="homePostContent">
+                    @homePost.Created
+                </div>
+                <div>
+                    <button>LIKE</button>
+                    <span>0</span>
+                </div>
+                @if(User.Identity.IsAuthenticated && (User.IsInRole(FinkiCommunity.Models.RoleName.Admin) || User.IsInRole(FinkiCommunity.Models.RoleName.Moderator))){
+                    <button class="btn btn-danger js-delete">DELETE POST</button>
+                }
+            </div>
+        }
     </div>
 </div>

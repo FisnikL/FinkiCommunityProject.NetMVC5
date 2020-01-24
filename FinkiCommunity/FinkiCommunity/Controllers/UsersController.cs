@@ -3,8 +3,8 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
-using FinkiCommunity.Models;
 using System.Data.Entity;
+using System.IO;
 using System;
 
 namespace FinkiCommunity.Controllers
@@ -72,8 +72,9 @@ namespace FinkiCommunity.Controllers
             }
         }
 
-        [Authorize]
+
         // GET: Users/Edit/username
+        [Authorize]
         public ActionResult Edit(string id)
         {
             if (id == null)
@@ -93,7 +94,78 @@ namespace FinkiCommunity.Controllers
                 return HttpNotFound();
             }
 
-            return View(user);
+            var model = new UserEditModel()
+            {
+                UserName = user.UserName,
+                Email = user.Email,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Birthdate = user.Birthdate
+            };
+
+            return View(model);
+        }
+
+
+        // GET: Users/Edit/username
+        [Authorize]
+        [HttpPost]
+        public ActionResult Edit(UserEditModel userEditModel)
+        {
+            // SECURITY LEAK!!!!!
+            // WE WILL SOLVE IT WITH Bind CONSTRAINTS
+            string userName = userEditModel.UserName;
+            var loggedInUserName = User.Identity.GetUserName();
+            var user = db.Users.Where(u => u.UserName == userName).FirstOrDefault();
+
+            if (user == null)
+            {
+                // TO DO: BAD REQUEST
+                return HttpNotFound();
+            }
+
+            if (loggedInUserName != user.UserName)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+            }
+
+            // ApplicationUser user = db.Users.Where(u => u.UserName == id).FirstOrDefault();
+            user.Email = userEditModel.Email;
+            user.FirstName = userEditModel.FirstName;
+            user.LastName = userEditModel.LastName;
+            user.Birthdate = userEditModel.Birthdate;
+
+            db.Entry(user).State = EntityState.Modified;
+            db.SaveChanges();
+
+            return RedirectToAction("Detail", "Users", new { id = user.UserName});
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult UpdateProfilePicture(UpdateProfilePictureModel updateProfilePictureModel)
+        {
+            var user = db.Users.Find(User.Identity.GetUserId());
+
+            string fileName = Path.GetFileNameWithoutExtension(updateProfilePictureModel.ProfilePicture.FileName);
+            string extension = Path.GetExtension(updateProfilePictureModel.ProfilePicture.FileName);
+
+            fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+
+            string profilePicturePath = "~/Content/profile-images/" + fileName;
+
+            fileName = Path.Combine(Server.MapPath("~/Content/profile-images/"), fileName);
+
+            updateProfilePictureModel.ProfilePicture.SaveAs(fileName);
+
+            user.ProfilePictureUrl = profilePicturePath;
+
+            db.Entry(user).State = EntityState.Modified;
+            db.SaveChanges();
+
+            return RedirectToAction("Detail", new { id = user.UserName});
+
+            // TO DO: REMOVE THE OLD IMAGE SO IT WON'T TAKE MEMORY
         }
     }
 }

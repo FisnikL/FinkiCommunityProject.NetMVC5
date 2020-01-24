@@ -1,9 +1,8 @@
 ﻿using FinkiCommunity.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 namespace FinkiCommunity.Controllers
 {
@@ -19,9 +18,20 @@ namespace FinkiCommunity.Controllers
                 CourseDescription = group.CourseDescription
             }).ToList();
 
+            List<HomePostModel> homePagePosts = db.Posts.Include(p => p.UserOwner).OrderByDescending(p => p.Created)
+                .Select(post => new HomePostModel()
+                {
+                    Id = post.Id,
+                    Title = post.Title,
+                    Content = post.Content,
+                    Created = post.Created
+                }).ToList();
+
+
             HomePageModel model = new HomePageModel()
             {
-                HomeGroups = homePageGroups
+                HomeGroups = homePageGroups,
+                HomePosts = homePagePosts
             };
 
             return View(model);

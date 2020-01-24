@@ -6,30 +6,47 @@
 
 <h2>Detail</h2>
 
-<div class="user-detail">
-    <div>
-        <img src="@Url.Content(Model.ProfilePictureUrl)" width="100px" height="100px" />
+<div class="user-detail" style="display:flex">
+    <div style="flex-grow:5; border: 1px solid black;">
+        <div style=" height: 50px;">
+            @Model.UserName
+        </div>
+        <div style="height: 50px;">
+            @Model.FirstName
+        </div>
+        <div style="height: 50px;">
+            @Model.LastName
+        </div>
+        <div style="height: 50px;">
+            @Model.Email
+        </div>
+        <div style="height: 50px;">
+            @Model.Gender
+        </div>
+        <div style="height: 50px;">
+            @Model.Birthdate
+        </div>
+        <div>
+            @Model.Role
+        </div>
     </div>
-    <div style=" height: 50px;">
-        @Model.UserName
-    </div>
-    <div style="height: 50px;">
-        @Model.FirstName
-    </div>
-    <div style="height: 50px;">
-        @Model.LastName
-    </div>
-    <div style="height: 50px;">
-        @Model.Email
-    </div>
-    <div style="height: 50px;">
-        @Model.Gender
-    </div>
-    <div style="height: 50px;">
-        @Model.Birthdate
-    </div>
-    <div>
-        @Model.Role
+    <div style="flex-grow:2; border: 1px solid black;">
+        <div id="profile-image-container">
+            <img src="@Url.Content(Model.ProfilePictureUrl)" width="400" height="400" />
+        </div>
+        @if (Model.IsHisHerProfile)
+        {
+            <div>
+                @using (Html.BeginForm("UpdateProfilePicture", "Users", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <div class="form-group">
+                        <input type="file" name="ProfilePicture" class="form-control" />
+                    </div>
+                    @*@Html.HiddenFor(model => model.UserName)*@
+                    <button type="submit" class="btn btn-primary">Upload</button>
+                }
+            </div>
+        }
     </div>
 </div>
 

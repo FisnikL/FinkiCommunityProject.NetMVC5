@@ -15,6 +15,7 @@ namespace FinkiCommunity.Models
         [Required]
         [Display(Name = "Description")]
         public string CourseDescription { get; set; }
+        public string CoursePictureUrl { get; set; }
         [Required]
         [Display(Name = "Study Year")]
         public Enums.StudyYear StudyYear { get; set; }
@@ -23,11 +24,13 @@ namespace FinkiCommunity.Models
         [Required]
         [Display(Name = "Course Type")]
         public Enums.CourseType CourseType { get; set; }
+
         [Required]
         [Display(Name = "Study Programs")]
         public ICollection<StudyProgram> StudyPrograms { get; set; }
         public int NumberOfPosts { get; set; }
         public int NumberOfReplies { get; set; }
-        public IEnumerable<Post> Posts { get; set; }
+        public ICollection<Post> Posts { get; set; }
+        
     }
 }

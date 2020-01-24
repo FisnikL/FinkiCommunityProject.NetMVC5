@@ -41,18 +41,22 @@ namespace FinkiCommunity.Controllers
         }
 
         // POST: Posts/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Title,Content")] Post post)
+        public ActionResult Create(NewPostModel newPostModel)
         {
             if (ModelState.IsValid)
             {
-                post.Created = DateTime.Now;
-                post.NumberOfLikes = 0;
-                post.NumberOfReplies = 0;
-                post.UserOwner = db.Users.Find(User.Identity.GetUserId());
+                Post post = new Post()
+                {
+                    Title = newPostModel.Title,
+                    Content = newPostModel.Content,
+                    Created = DateTime.Now,
+                    NumberOfLikes = 0,
+                    NumberOfReplies = 0,
+                    UserOwner = db.Users.Find(User.Identity.GetUserId())
+                    //, Add Group Owner
+                };
 
                 db.Posts.Add(post);
                 db.SaveChanges();
@@ -60,7 +64,7 @@ namespace FinkiCommunity.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View(post);
+            return View("Index", "Posts");
         }
 
         // GET: Posts/Edit/5

@@ -135,33 +135,12 @@ namespace FinkiCommunity.Controllers
             return View(editGroupModel);
         }
 
-        //[Authorize(Roles = RoleName.Admin)]
-        //// GET: Groups/Delete/{CourseCode}
-        //public ActionResult Delete(string id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Group group = db.Groups.Where(g => g.CourseCode == id).FirstOrDefault();
-        //    if (group == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(group);
-        //}
-
-        //[Authorize(Roles = RoleName.Admin)]
-        //// POST: Groups/Delete/{CourseCode}
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult DeleteConfirmed(int id)
-        //{
-        //    Group group = db.Groups.Find(id);
-        //    db.Groups.Remove(group);
-        //    db.SaveChanges();
-        //    return RedirectToAction("Index");
-        //}
+        // GET: Groups/Posts/{CourseName}
+        public ActionResult Posts(string id)
+        {
+            Group group = db.Groups.Include(g => g.Posts).Where(g => g.CourseCode == id).First();
+            return View();
+        }
 
         protected override void Dispose(bool disposing)
         {
