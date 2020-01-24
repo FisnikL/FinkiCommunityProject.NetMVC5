@@ -73,6 +73,7 @@ namespace FinkiCommunity.Controllers
         }
 
         // GET: Posts/Edit/5
+        [Authorize(Roles = RoleName.Admin + "," + RoleName.Moderator)]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -84,23 +85,34 @@ namespace FinkiCommunity.Controllers
             {
                 return HttpNotFound();
             }
-            return View(post);
+
+            var model = new EditPostModel()
+            {
+                Id = post.Id,
+                Title = post.Title,
+                Content = post.Content
+            };
+
+            return View(model);
         }
 
         // POST: Posts/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Title,Content,Created,NumberOfLikes,NumberOfReplies")] Post post)
+        [Authorize(Roles = RoleName.Admin + "," + RoleName.Moderator)]
+        public ActionResult Edit([Bind(Include = "Id,Title,Content")] EditPostModel editPostModel)
         {
             if (ModelState.IsValid)
             {
+                Post post = db.Posts.Find(editPostModel.Id);
+                post.Title = editPostModel.Title;
+                post.Content = editPostModel.Content;
+
                 db.Entry(post).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", new { id = editPostModel.Id });
             }
-            return View(post);
+            return View(editPostModel);
         }
 
         //[Authorize(Roles = RoleName.Admin + "," + RoleName.Moderator)]

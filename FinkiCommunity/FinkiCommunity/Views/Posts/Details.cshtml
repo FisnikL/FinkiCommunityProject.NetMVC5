@@ -10,13 +10,18 @@
     <hr />
     @if (User.Identity.IsAuthenticated && (User.IsInRole(FinkiCommunity.Models.RoleName.Admin) || User.IsInRole(FinkiCommunity.Models.RoleName.Moderator)))
     {
-        using (Html.BeginForm("Delete", "Posts", FormMethod.Post))
-        {
-            @Html.AntiForgeryToken()
-            <input name="id", value="@Model.Id" hidden="true"/>
-            <button type="submit" class="btn btn-danger">DELETE POST</button>
-        }
-
+        <div>
+            @using (Html.BeginForm("Delete", "Posts", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <input name="id" , value="@Model.Id" hidden="true" />
+                <button type="submit" class="btn btn-danger">DELETE POST</button>
+            }
+        </div>  
+        <div style="margin-top: 10px;">
+            @Html.ActionLink("Edit Post", "Edit", "Posts", new { id = Model.Id }, new { @class = "btn btn-default" })
+        </div>
+        
     }
     <div>
         <div>Group: @Html.ActionLink(Model.Group.CourseName, "Posts", "Groups", new { id = Model.Group.CourseCode }, null)</div>

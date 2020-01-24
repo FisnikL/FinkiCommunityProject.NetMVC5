@@ -14,6 +14,7 @@ namespace FinkiCommunity.Models
         public DateTime Birthdate { get; set; }
         public string Gender { get; set; }
         public string ProfilePictureUrl { get; set; }
+        public int Rating { get; set; }
 
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)

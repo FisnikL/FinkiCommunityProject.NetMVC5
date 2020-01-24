@@ -238,6 +238,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Home\HomePostModel.cs" />
+    <Compile Include="Models\Post\EditPostModel.cs" />
     <Compile Include="Models\Post\NewPostModel.cs" />
     <Compile Include="Models\Post\Post.cs" />
     <Compile Include="Models\Post\PostDetailsModel.cs" />
