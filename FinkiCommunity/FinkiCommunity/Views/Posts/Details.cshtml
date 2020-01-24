@@ -8,6 +8,16 @@
 
 <div>
     <hr />
+    @if (User.Identity.IsAuthenticated && (User.IsInRole(FinkiCommunity.Models.RoleName.Admin) || User.IsInRole(FinkiCommunity.Models.RoleName.Moderator)))
+    {
+        using (Html.BeginForm("Delete", "Posts", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <input name="id", value="@Model.Id" hidden="true"/>
+            <button type="submit" class="btn btn-danger">DELETE POST</button>
+        }
+
+    }
     <div>
         <div>Group: @Html.ActionLink(Model.Group.CourseName, "Posts", "Groups", new { id = Model.Group.CourseCode }, null)</div>
         <div>Title: @Model.Title</div>
@@ -15,27 +25,27 @@
         <div>Created: @Model.Created</div>
         <div>NumberOfLikes: @Model.NumberOfLikes</div>
         <div>NumberOfReplies: @Model.NumberOfReplies</div>
-        <div>User: @Html.ActionLink(Model.UserOwner.UserName, "Details", "Users", new { id = Model.UserOwner.UserName}, null)</div>
+        <div>User: @Html.ActionLink(Model.UserOwner.UserName, "Details", "Users", new { id = Model.UserOwner.UserName }, null)</div>
     </div>
-    
+
     <div style="margin-top: 20px">
-        @Html.ActionLink("REPLY", "Create", "Replies", new { id = Model.Id}, new { @class = "btn btn-default" })
+        @Html.ActionLink("REPLY", "Create", "Replies", new { id = Model.Id }, new { @class = "btn btn-default" })
     </div>
 
     </>
     <div style="margin-top: 20px">
         <div style="margin-bottom: 10px">There are: @Model.NumberOfReplies Replies</div>
-        @foreach(var reply in Model.Replies)
+        @foreach (var reply in Model.Replies)
         {
-        <div style="margin:20px; padding-left: 50px">
-            <div>Content: @reply.Content</div>
-            <div>Created: @reply.Created</div>
-            <div>NumberOfLikes: @reply.NumberOfLikes</div>
-            <div>User: @Html.ActionLink(reply.UserOwner.UserName, "Details", "Users", new { id = reply.UserOwner.UserName }, null)</div>
-        </div>
+            <div style="margin:20px; padding-left: 50px">
+                <div>Content: @reply.Content</div>
+                <div>Created: @reply.Created</div>
+                <div>NumberOfLikes: @reply.NumberOfLikes</div>
+                <div>User: @Html.ActionLink(reply.UserOwner.UserName, "Details", "Users", new { id = reply.UserOwner.UserName }, null)</div>
+            </div>
         }
     </div>
-    
+
 </div>
 @*<p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |

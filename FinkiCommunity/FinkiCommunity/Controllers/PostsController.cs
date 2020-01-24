@@ -103,30 +103,36 @@ namespace FinkiCommunity.Controllers
             return View(post);
         }
 
-        // GET: Posts/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Post post = db.Posts.Find(id);
-            if (post == null)
-            {
-                return HttpNotFound();
-            }
-            return View(post);
-        }
+        //[Authorize(Roles = RoleName.Admin + "," + RoleName.Moderator)]
+        //GET: Posts/Delete/5
+        //public ActionResult Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Post post = db.Posts.Find(id);
+        //    if (post == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(post);
+        //}
 
         // POST: Posts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        [Authorize(Roles = RoleName.Admin + "," + RoleName.Moderator)]
+        public ActionResult Delete(int id)
         {
-            Post post = db.Posts.Find(id);
+            Post post = db.Posts.Include(p => p.Replies).Where(p => p.Id == id).First();
+            // db.Posts.Remove(post);
+            db.Replies.RemoveRange(post.Replies.ToList());
+            // db.SaveChanges();
             db.Posts.Remove(post);
             db.SaveChanges();
-            return RedirectToAction("Index");
+
+            return RedirectToAction("Index", "Home");
         }
 
         protected override void Dispose(bool disposing)

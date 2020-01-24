@@ -75,11 +75,6 @@
                         Posted by: @Html.ActionLink(homePost.UserOwner.UserName, "Details", "Users", new { id = homePost.UserOwner.UserName }, null)
                     </div>
                 </div>
-
-                @if (User.Identity.IsAuthenticated && (User.IsInRole(FinkiCommunity.Models.RoleName.Admin) || User.IsInRole(FinkiCommunity.Models.RoleName.Moderator)))
-                {
-                    <button class="btn btn-danger js-delete">DELETE POST</button>
-                }
             </div>
         }
     </div>
