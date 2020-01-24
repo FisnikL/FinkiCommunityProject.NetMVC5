@@ -19,8 +19,8 @@ namespace FinkiCommunity.Controllers
             return View(db.Users.ToList());
         }
 
-        // GET: Users/Detail/username
-        public ActionResult Detail(string id)
+        // GET: Users/Details/username
+        public ActionResult Details(string id)
         {
             if(id == null)
             {
@@ -163,7 +163,7 @@ namespace FinkiCommunity.Controllers
             db.Entry(user).State = EntityState.Modified;
             db.SaveChanges();
 
-            return RedirectToAction("Detail", new { id = user.UserName});
+            return RedirectToAction("Details", new { id = user.UserName});
 
             // TO DO: REMOVE THE OLD IMAGE SO IT WON'T TAKE MEMORY
         }

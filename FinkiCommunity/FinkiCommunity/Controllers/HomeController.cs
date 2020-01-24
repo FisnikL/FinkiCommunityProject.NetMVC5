@@ -11,20 +11,30 @@ namespace FinkiCommunity.Controllers
         private readonly ApplicationDbContext db = new ApplicationDbContext();
         public ActionResult Index()
         {
+
             List<HomeGroupModel> homePageGroups = db.Groups.Select(group => new HomeGroupModel
             {
                 CourseCode = group.CourseCode,
                 CourseName = group.CourseName,
-                CourseDescription = group.CourseDescription
+                CourseDescription = group.CourseDescription,
+                CoursePictureUrl = group.CoursePictureUrl
             }).ToList();
 
-            List<HomePostModel> homePagePosts = db.Posts.Include(p => p.UserOwner).OrderByDescending(p => p.Created)
+
+            List<HomePostModel> homePagePosts = db.Posts
+                .Include(p => p.UserOwner)
+                .Include(p => p.Group)
+                .OrderByDescending(p => p.Created)
                 .Select(post => new HomePostModel()
                 {
                     Id = post.Id,
                     Title = post.Title,
                     Content = post.Content,
-                    Created = post.Created
+                    Created = post.Created,
+                    NumberOfLikes = post.NumberOfLikes,
+                    NumberOfReplies = post.NumberOfReplies,
+                    UserOwner = post.UserOwner,
+                    Group = post.Group
                 }).ToList();
 
 

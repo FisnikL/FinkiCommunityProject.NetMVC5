@@ -8,18 +8,28 @@
     <div id="groups-container" style="width: 200px; margin-top: 50px; border: 2px solid red; padding: 10px; flex-grow: 1">
         @foreach (var homeGroup in Model.HomeGroups)
         {
-
+            <div style="display: flex;">
+                <div style="margin-right: 5px">
+                    <div style="width: 50px; height: 50px">
+                        <a href=@("/Groups/Posts/" + @homeGroup.CourseCode)>
+                            @if (homeGroup.CoursePictureUrl != null)
+                            {
+                                <img src="@Url.Content(homeGroup.CoursePictureUrl)" width="50" height="50" />
+                            }
+                        </a>
+                    </div>
+                </div>
                 <div style="border: 1px solid green; margin-bottom: 10px;">
-                    <div class="homeGroupName">
-                        @Html.ActionLink(homeGroup.CourseName, "Posts", "Groups", new { id = homeGroup.CourseCode }, null)
-                    </div>
-                    <div class="homeGroupDescription">
-                        @homeGroup.CourseDescription
-                    </div>
-                    @*<div>
-                        @Html.ActionLink("Show Posts", "GroupPosts", new { homeGroup.CourseCode})
-                    </div>*@  
-                </div>  
+                    <a href="@("/Groups/Posts/" + homeGroup.CourseCode)">
+                        <div class="homeGroupName">
+                            @homeGroup.CourseName
+                        </div>
+                        <div class="homeGroupDescription">
+                            @homeGroup.CourseDescription
+                        </div>
+                    </a>
+            </div>
+        </div>
         }
     </div>
     <div id="posts-container" style="border: 1px solid black; width: 200px; margin-top: 50px; flex-grow: 10">
@@ -27,19 +37,39 @@
         {
 
             <div style="border: 1px solid green; margin-bottom: 10px;">
+                <div class="belongsToGroup">
+                    Group: @Html.ActionLink(homePost.Group.CourseName, "Posts", "Groups", new { id = homePost.Group.CourseCode }, null)
+                </div>
                 <div class="homePostTitle">
-                    @Html.ActionLink(homePost.Title, "Details", "Posts", new {id = homePost.Id}, null)
+                    Title: @Html.ActionLink(homePost.Title, "Details", "Posts", new {id = homePost.Id}, null)
                 </div>
                 <div class="homeGroupName">
-                    @homePost.Content
+                    Content: @homePost.Content
                 </div>
                 <div class="homePostContent">
-                    @homePost.Created
+                    Created: @homePost.Created
                 </div>
                 <div>
                     <button>LIKE</button>
-                    <span>0</span>
+                    <span>@homePost.NumberOfLikes</span>
                 </div>
+                <div>
+                    <button>@homePost.NumberOfReplies @Html.ActionLink(homePost.NumberOfReplies == 1 ? "Reply" : "Replies", "Details", "Posts", new { id = homePost.Id}, null)</button>
+                </div>
+                <div style="display: flex">
+                    <div>
+                        @if (homePost.UserOwner.ProfilePictureUrl != null)
+                        {
+                        <a href="@("/Users/Details/" + homePost.UserOwner.UserName)">
+                            <img src="@Url.Content(homePost.UserOwner.ProfilePictureUrl)" width="50" height="50" />
+                        </a>
+                        }
+                    </div>
+                    <div>
+                        Posted by: @Html.ActionLink(homePost.UserOwner.UserName, "Details", "Users", new { id = homePost.UserOwner.UserName }, null)
+                    </div>
+                </div>
+                
                 @if(User.Identity.IsAuthenticated && (User.IsInRole(FinkiCommunity.Models.RoleName.Admin) || User.IsInRole(FinkiCommunity.Models.RoleName.Moderator))){
                     <button class="btn btn-danger js-delete">DELETE POST</button>
                 }

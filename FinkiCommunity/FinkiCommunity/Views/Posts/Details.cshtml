@@ -4,61 +4,38 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Welcome to Post - @Model.Title</h2>
 
 <div>
-    <h4>Post</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
+    <div>
+        <div>Group: @Html.ActionLink(Model.Group.CourseName, "Posts", "Groups", new { id = Model.Group.CourseCode }, null)</div>
+        <div>Title: @Model.Title</div>
+        <div>Content: @Model.Content</div>
+        <div>Created: @Model.Created</div>
+        <div>NumberOfLikes: @Model.NumberOfLikes</div>
+        <div>NumberOfReplies: @Model.NumberOfReplies</div>
+        <div>User: @Html.ActionLink(Model.UserOwner.UserName, "Details", "Users", new { id = Model.UserOwner.UserName}, null)</div>
+    </div>
+    
+    <div style="margin-top: 20px">
+        <button class="btn btn-default">REPLY</button>
+    </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Content)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Content)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Created)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Created)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.UserOwner.UserName)
-        </dt>
-
-        <dd>
-            @Html.ActionLink(Model.UserOwner.UserName, "Detail", "Users", new { id = Model.UserOwner.UserName}, null)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.NumberOfLikes)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NumberOfLikes)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.NumberOfReplies)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NumberOfReplies)
-        </dd>
-
-    </dl>
+    </>
+    <div style="margin-top: 20px">
+        <div>@Model.NumberOfReplies Replies</div>
+        @foreach(var reply in Model.Replies)
+        {
+        <div>
+            <div>Content: @Model.Content</div>
+            <div>Created: @Model.Created</div>
+            <div>NumberOfLikes: @Model.NumberOfLikes</div>
+            <div>User: @Html.ActionLink(reply.UserOwner.UserName, "Details", "Users", new { id = reply.UserOwner.UserName }, null)</div>
+        </div>
+        }
+    </div>
+    
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |

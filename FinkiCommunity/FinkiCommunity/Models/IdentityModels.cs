@@ -43,6 +43,8 @@ namespace FinkiCommunity.Models
 
         public System.Data.Entity.DbSet<FinkiCommunity.Models.StudyProgram> StudyPrograms { get; set; }
 
+        public System.Data.Entity.DbSet<FinkiCommunity.Models.Reply> Replies { get; set; }
+
         //public System.Data.Entity.DbSet<FinkiCommunity.Models.ApplicationUser> ApplicationUsers { get; set; }
     }
 }

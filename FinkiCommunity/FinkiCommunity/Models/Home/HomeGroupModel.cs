@@ -10,5 +10,6 @@ namespace FinkiCommunity.Models
         public string CourseCode { get; set; }
         public string CourseName { get; set; }
         public string CourseDescription { get; set; }
+        public string CoursePictureUrl { get; set; }
     }
 }

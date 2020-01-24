@@ -19,17 +19,20 @@ namespace FinkiCommunity.Controllers
         }
 
         // GET: Posts/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Post post = db.Posts.Include(p => p.UserOwner).Where(p => p.Id == id).First();
+            Post post = db.Posts
+                .Include(p => p.UserOwner)
+                .Include(p => p.Group)
+                .Include(p => p.Replies)
+                .Where(p => p.Id == id).First();
+
             if (post == null)
             {
                 return HttpNotFound();
             }
+
+
             return View(post);
         }
 

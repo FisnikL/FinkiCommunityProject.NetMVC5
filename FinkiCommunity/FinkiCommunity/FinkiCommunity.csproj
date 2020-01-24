@@ -183,6 +183,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PostsController.cs" />
+    <Compile Include="Controllers\RepliesController.cs" />
     <Compile Include="Controllers\StudyProgramsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
@@ -208,6 +209,18 @@
     <Compile Include="Migrations\202001240103205_model Group changed.Designer.cs">
       <DependentUpon>202001240103205_model Group changed.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202001241655268_Another migration.cs" />
+    <Compile Include="Migrations\202001241655268_Another migration.Designer.cs">
+      <DependentUpon>202001241655268_Another migration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001241701249_Post model changed.cs" />
+    <Compile Include="Migrations\202001241701249_Post model changed.Designer.cs">
+      <DependentUpon>202001241701249_Post model changed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001241708067_Reply model changed.cs" />
+    <Compile Include="Migrations\202001241708067_Reply model changed.Designer.cs">
+      <DependentUpon>202001241708067_Reply model changed.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Enums\Enums.cs" />
@@ -220,9 +233,10 @@
     <Compile Include="Models\Home\HomePageModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\Post\HomePostModel.cs" />
+    <Compile Include="Models\Home\HomePostModel.cs" />
     <Compile Include="Models\Post\NewPostModel.cs" />
     <Compile Include="Models\Post\Post.cs" />
+    <Compile Include="Models\Post\PostDetailsModel.cs" />
     <Compile Include="Models\Reply\Reply.cs" />
     <Compile Include="Models\RoleName.cs" />
     <Compile Include="Models\StudyProgram\StudyProgram.cs" />
@@ -583,9 +597,14 @@
     <Content Include="Views\StudyPrograms\Edit.cshtml" />
     <Content Include="Views\StudyPrograms\Index.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
-    <Content Include="Views\Users\Detail.cshtml" />
+    <Content Include="Views\Users\Details.cshtml" />
     <Content Include="Views\Users\Edit.cshtml" />
     <Content Include="Views\Groups\Posts.cshtml" />
+    <Content Include="Views\Replies\Create.cshtml" />
+    <Content Include="Views\Replies\Delete.cshtml" />
+    <Content Include="Views\Replies\Details.cshtml" />
+    <Content Include="Views\Replies\Edit.cshtml" />
+    <Content Include="Views\Replies\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -619,6 +638,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202001240103205_model Group changed.resx">
       <DependentUpon>202001240103205_model Group changed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001241655268_Another migration.resx">
+      <DependentUpon>202001241655268_Another migration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001241701249_Post model changed.resx">
+      <DependentUpon>202001241701249_Post model changed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001241708067_Reply model changed.resx">
+      <DependentUpon>202001241708067_Reply model changed.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
