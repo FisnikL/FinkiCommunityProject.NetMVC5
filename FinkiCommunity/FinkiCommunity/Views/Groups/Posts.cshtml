@@ -1,7 +1,73 @@
-﻿
+﻿@model FinkiCommunity.Models.Group
+
 @{
     ViewBag.Title = "Posts";
 }
 
-<h2>Posts</h2>
+<h1>Welcome to @Model.CourseName Group</h1>
+<p>@Model.CourseDescription</p>
+<div style="width:200px; height: 200px; border: 1px solid black">
+    @if (Model.CoursePictureUrl != null)
+    {
+        <img src="@Url.Content(Model.CoursePictureUrl)" width="200" height="200" />
+    }
+
+</div>
+@if (User.IsInRole(FinkiCommunity.Models.RoleName.Admin) || User.IsInRole(FinkiCommunity.Models.RoleName.Moderator))
+{
+    @Html.ActionLink("Group Details", "Details", "Groups", new { id = Model.CourseCode}, null)
+}
+
+<div style="margin-top: 10px">
+    @Html.ActionLink("Create New Post", "Create", "Posts", new { id = Model.CourseCode }, null)
+</div>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>
+                Title
+            </th>
+            <th>
+                Content
+            </th>
+            <th>
+                Created
+            </th>
+            <th>
+                Number of Likes
+            </th>
+            <th>
+                Number of Replies
+            </th>
+        </tr>
+    </thead>   
+    </div>
+    <tbody>
+        @if (Model.Posts != null)
+        {
+            foreach (var post in Model.Posts)
+            {
+                <tr>
+                    <td>
+                        @Html.ActionLink(@post.Title, "Details", "Post", new { id = post.Id })
+                    </td>
+                    <td>
+                        @post.Content
+                    </td>
+                    <td>
+                        @post.Created
+                    </td>
+                    <td>
+                        @post.NumberOfLikes
+                    </td>
+                    <td>
+                        @post.NumberOfReplies
+                    </td>
+                </tr>
+            }
+        }
+
+    </tbody>
+</table>
 

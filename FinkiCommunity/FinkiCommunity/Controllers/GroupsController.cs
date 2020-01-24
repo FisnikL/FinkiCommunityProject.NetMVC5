@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Validation;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
@@ -20,6 +21,7 @@ namespace FinkiCommunity.Controllers
         }
 
         // GET: Groups/Details/{CourseCode}
+        [Authorize(Roles = RoleName.Admin + "," + RoleName.Moderator)]
         public ActionResult Details(string id)
         {
             if (id == null)
@@ -138,8 +140,38 @@ namespace FinkiCommunity.Controllers
         // GET: Groups/Posts/{CourseName}
         public ActionResult Posts(string id)
         {
-            Group group = db.Groups.Include(g => g.Posts).Where(g => g.CourseCode == id).First();
-            return View();
+            // In fact group
+            var model = db.Groups.Include(g => g.Posts).Where(g => g.CourseCode == id).First();
+            model.Posts = model.Posts.OrderByDescending(post => post.Created).ToList();
+            return View(model);
+        }
+
+        // POST Groups/
+        [Authorize(Roles = RoleName.Admin + "," + RoleName.Moderator)]
+        [HttpPost]
+        public ActionResult UpdateGroupPicture(UpdateGroupPictureModel updateGroupPictureModel)
+        {
+            Group group = db.Groups.Where(g => g.CourseCode == updateGroupPictureModel.CourseCode).First();
+
+            string fileName = Path.GetFileNameWithoutExtension(updateGroupPictureModel.GroupPicture.FileName);
+            string extension = Path.GetExtension(updateGroupPictureModel.GroupPicture.FileName);
+
+            fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+
+            string groupPicturePath = "~/Content/group-images/" + fileName;
+
+            fileName = Path.Combine(Server.MapPath("~/Content/group-images/"), fileName);
+
+            updateGroupPictureModel.GroupPicture.SaveAs(fileName);
+
+            group.CoursePictureUrl = groupPicturePath;
+
+            db.Entry(group).State = EntityState.Modified;
+            db.SaveChanges();
+
+            return RedirectToAction("Details", new { id = group.CourseCode });
+
+            // TO DO: REMOVE THE OLD IMAGE SO IT WON'T TAKE MEMORY
         }
 
         protected override void Dispose(bool disposing)

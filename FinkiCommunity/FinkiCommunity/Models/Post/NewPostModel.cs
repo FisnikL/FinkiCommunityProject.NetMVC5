@@ -9,6 +9,8 @@ namespace FinkiCommunity.Models
     public class NewPostModel
     {
         [Required]
+        public string CourseCode { get; set; }
+        [Required]
         public string Title { get; set; }
         [Required]
         public string Content { get; set; }

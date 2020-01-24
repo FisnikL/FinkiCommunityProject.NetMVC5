@@ -81,8 +81,27 @@
         <dd>
             @Html.DisplayFor(model => model.NumberOfReplies)
         </dd>
+        <div id="pictureContainer" style="width:200px; height:200px; border: 1px solid black;">
+            @if (Model.CoursePictureUrl != null)
+            {
+                <img src="@Url.Content(Model.CoursePictureUrl)" width="200" height="200" />
+            }
 
-    </dl>
+        </div>
+
+        <div id="uploadGroupImage">
+            <div>
+                @using (Html.BeginForm("UpdateGroupPicture", "Groups", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <div class="form-group">
+                        <input type="file" name="GroupPicture" class="form-control" />
+                    </div>
+                    @Html.HiddenFor(model => model.CourseCode)
+                    <button type="submit" class="btn btn-primary">Upload</button>
+                }
+            </div>
+        </div>
+</dl>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.CourseCode }) |

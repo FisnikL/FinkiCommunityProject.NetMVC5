@@ -34,9 +34,10 @@ namespace FinkiCommunity.Controllers
         }
 
         [Authorize]
-        // GET: Posts/Create
-        public ActionResult Create()
+        // GET: Posts/Create/{CourseName}
+        public ActionResult Create(string id)
         {
+            ViewBag.CourseCode = id;
             return View();
         }
 
@@ -54,17 +55,17 @@ namespace FinkiCommunity.Controllers
                     Created = DateTime.Now,
                     NumberOfLikes = 0,
                     NumberOfReplies = 0,
-                    UserOwner = db.Users.Find(User.Identity.GetUserId())
-                    //, Add Group Owner
+                    UserOwner = db.Users.Find(User.Identity.GetUserId()),
+                    Group = db.Groups.Where(g => g.CourseCode == newPostModel.CourseCode).First()
                 };
 
                 db.Posts.Add(post);
                 db.SaveChanges();
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Posts", "Groups", new { id = newPostModel.CourseCode });
             }
 
-            return View("Index", "Posts");
+            return View();
         }
 
         // GET: Posts/Edit/5

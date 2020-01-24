@@ -215,6 +215,7 @@
     <Compile Include="Models\Group\CreateGroupModelPost.cs" />
     <Compile Include="Models\Group\EditGroupModel.cs" />
     <Compile Include="Models\Group\Group.cs" />
+    <Compile Include="Models\Group\UpdateGroupPictureModel.cs" />
     <Compile Include="Models\Home\HomeGroupModel.cs" />
     <Compile Include="Models\Home\HomePageModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -588,6 +589,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\group-images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
