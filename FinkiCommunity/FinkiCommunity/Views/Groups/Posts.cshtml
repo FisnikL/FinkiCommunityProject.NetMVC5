@@ -15,11 +15,21 @@
 </div>
 @if (User.IsInRole(FinkiCommunity.Models.RoleName.Admin) || User.IsInRole(FinkiCommunity.Models.RoleName.Moderator))
 {
-    @Html.ActionLink("Group Details", "Details", "Groups", new { id = Model.CourseCode}, null)
+    @Html.ActionLink("Group Details", "Details", "Groups", new { id = Model.CourseCode }, null)
 }
 
 <div style="margin-top: 10px">
     @Html.ActionLink("Create New Post", "Create", "Posts", new { id = Model.CourseCode }, null)
+</div>
+<div>
+    @using (Html.BeginForm("SearchGroupsPosts", "Groups", FormMethod.Get))
+    {
+        <div class="form-group">
+            @Html.TextBox("groupPostTerm", null, new { @class = "form-control" })
+            @Html.Hidden("CourseCode", Model.CourseCode)
+            <button type="submit" class="btn btn-default">Search</button>
+        </div>
+    }
 </div>
 
 <table class="table table-hover">
@@ -41,7 +51,7 @@
                 Number of Replies
             </th>
         </tr>
-    </thead>   
+    </thead>
     </div>
     <tbody>
         @if (Model.Posts != null)

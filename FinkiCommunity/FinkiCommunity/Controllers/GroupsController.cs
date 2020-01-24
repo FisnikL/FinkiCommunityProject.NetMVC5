@@ -51,8 +51,6 @@ namespace FinkiCommunity.Controllers
 
         [Authorize(Roles = RoleName.Admin)]
         // POST: Groups/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(CreateGroupModelPost model)
@@ -171,6 +169,24 @@ namespace FinkiCommunity.Controllers
             return RedirectToAction("Details", new { id = group.CourseCode });
 
             // TO DO: REMOVE THE OLD IMAGE SO IT WON'T TAKE MEMORY
+        }
+
+        public ActionResult SearchGroupsPosts(string CourseCode, string groupPostTerm)
+        {
+            Group group = db.Groups
+                .Where(g => g.CourseCode == CourseCode)
+                .Include(g => g.Posts)
+                .FirstOrDefault();
+
+            // MAYBE WE NEED TO SORT DESC!
+            group.Posts = group.Posts.Where(p => p.Title.Contains(groupPostTerm) || p.Content.Contains(groupPostTerm)).OrderByDescending(g => g.Created).ToList();
+
+            if (group == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View("Posts", group);
         }
 
         protected override void Dispose(bool disposing)
