@@ -225,6 +225,10 @@
     <Compile Include="Migrations\202001241713364_add reply model.Designer.cs">
       <DependentUpon>202001241713364_add reply model.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202001242057462_add rating.cs" />
+    <Compile Include="Migrations\202001242057462_add rating.Designer.cs">
+      <DependentUpon>202001242057462_add rating.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Enums\Enums.cs" />
@@ -656,6 +660,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202001241713364_add reply model.resx">
       <DependentUpon>202001241713364_add reply model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001242057462_add rating.resx">
+      <DependentUpon>202001242057462_add rating.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
