@@ -168,5 +168,26 @@ namespace FinkiCommunity.Controllers
 
             // TO DO: REMOVE THE OLD IMAGE SO IT WON'T TAKE MEMORY
         }
+
+        public ActionResult SearchUsers(string userTerm)
+        {
+            return View("Index", db.Users
+                .Where(u => u.FirstName.Contains(userTerm) || u.LastName.Contains(userTerm) 
+                            || u.Email.Contains(userTerm) || u.UserName.Contains(userTerm))
+                .ToList());
+        }
+
+        [Authorize(Roles = RoleName.Admin)]
+        [HttpPost]
+        public ActionResult Block(BlockUserModel user)
+        {
+            ApplicationUser u = db.Users.Find(user.UserId);
+            u.IsActive = !u.IsActive;
+
+            db.Entry(u).State = EntityState.Modified;
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
     }
 }

@@ -233,6 +233,10 @@
     <Compile Include="Migrations\202001250110588_Change group model.Designer.cs">
       <DependentUpon>202001250110588_Change group model.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202001250134418_Add IsActive property to ApplicationUser model.cs" />
+    <Compile Include="Migrations\202001250134418_Add IsActive property to ApplicationUser model.Designer.cs">
+      <DependentUpon>202001250134418_Add IsActive property to ApplicationUser model.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DefaultImagePath.cs" />
@@ -255,6 +259,7 @@
     <Compile Include="Models\Reply\Reply.cs" />
     <Compile Include="Models\RoleName.cs" />
     <Compile Include="Models\StudyProgram\StudyProgram.cs" />
+    <Compile Include="Models\User\BlockUserModel.cs" />
     <Compile Include="Models\User\UpdateProfilePictureModel.cs" />
     <Compile Include="Models\User\UserDetailModel.cs" />
     <Compile Include="Models\User\UserEditModel.cs" />
@@ -671,6 +676,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202001250110588_Change group model.resx">
       <DependentUpon>202001250110588_Change group model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001250134418_Add IsActive property to ApplicationUser model.resx">
+      <DependentUpon>202001250134418_Add IsActive property to ApplicationUser model.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

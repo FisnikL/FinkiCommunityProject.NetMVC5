@@ -161,7 +161,8 @@ namespace FinkiCommunity.Controllers
                     Email = model.Email,
                     Gender = model.Gender,
                     Birthdate = DateTime.Now.Date,
-                    ProfilePictureUrl = model.Gender == "M" ? DefaultImagePath.DEFAULT_MALE_USER_AVATAR : DefaultImagePath.DEFAULT_FEMALE_USER_AVATAR
+                    ProfilePictureUrl = model.Gender == "M" ? DefaultImagePath.DEFAULT_MALE_USER_AVATAR : DefaultImagePath.DEFAULT_FEMALE_USER_AVATAR,
+                    IsActive = true
                 };
 
                 // Do not allow duplicate Usernames
