@@ -66,8 +66,8 @@ namespace FinkiCommunity.Controllers
                     studyPrograms.Add(studyProgramDb);
                 }
             }
-
-            if (ModelState.IsValid)
+            Group gr = db.Groups.Where(g => g.CourseCode == model.CourseCode).FirstOrDefault();
+            if (ModelState.IsValid && gr == null)
             {
                 Group group = new Group()
                 {
@@ -87,8 +87,16 @@ namespace FinkiCommunity.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ModelState.AddModelError("", "The CourseCode is already taken!");
 
-            return View(model);
+            var m = new CreateGroupModelGet();
+
+            m.StudyYear.AddRange(Enum.GetNames(typeof(Enums.StudyYear)));
+            m.Semester.AddRange(Enum.GetNames(typeof(Enums.Semester)));
+            m.CourseType.AddRange(Enum.GetNames(typeof(Enums.CourseType)));
+            m.StudyPrograms = db.StudyPrograms.Select(sP => sP.Name).ToList();
+
+            return View(m);
         }
 
         // GET: Groups/Edit/{CourseCode}
