@@ -29,8 +29,12 @@
         <div>Content: @Model.Content</div>
         <div>Created: @Model.Created</div>
         <div>NumberOfLikes: @Model.NumberOfLikes</div>
-        <div>NumberOfReplies: @Model.NumberOfReplies</div>
-        <div>User: @Html.ActionLink(Model.UserOwner.UserName, "Details", "Users", new { id = Model.UserOwner.UserName }, null)</div>
+        <div class="user-container">
+            <div><img src="@Url.Content(Model.UserOwner.ProfilePictureUrl)" width="50" height="50"/></div>
+            <div>User: @Html.ActionLink(Model.UserOwner.UserName, "Details", "Users", new { id = Model.UserOwner.UserName }, null)</div>
+            <div>Rating: @Model.UserOwner.Rating</div>
+        </div>
+        
     </div>
 
     <div style="margin-top: 20px">
@@ -42,12 +46,16 @@
         <div style="margin-bottom: 10px">There are: @Model.NumberOfReplies Replies</div>
         @foreach (var reply in Model.Replies)
         {
-            <div style="margin:20px; padding-left: 50px">
-                <div>Content: @reply.Content</div>
-                <div>Created: @reply.Created</div>
-                <div>NumberOfLikes: @reply.NumberOfLikes</div>
+        <div style="margin:20px; padding-left: 50px">
+            <div>Content: @reply.Content</div>
+            <div>Created: @reply.Created</div>
+            <div>NumberOfLikes: @reply.NumberOfLikes</div>
+            <div class="user-container">
+                <div><img src="@Url.Content(reply.UserOwner.ProfilePictureUrl)" width="50" height="50" /></div>
                 <div>User: @Html.ActionLink(reply.UserOwner.UserName, "Details", "Users", new { id = reply.UserOwner.UserName }, null)</div>
+                <div>Rating: @reply.UserOwner.Rating</div>
             </div>
+        </div>
         }
     </div>
 

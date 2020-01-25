@@ -47,7 +47,8 @@ namespace FinkiCommunity.Controllers
                 Birthdate = user.Birthdate,
                 Gender = user.Gender,
                 ProfilePictureUrl = GetProfilePictureForUser(user),
-                IsHisHerProfile = User.Identity.GetUserName() == id
+                IsHisHerProfile = User.Identity.GetUserName() == id,
+                Rating = user.Rating
             };
 
             return View(model);

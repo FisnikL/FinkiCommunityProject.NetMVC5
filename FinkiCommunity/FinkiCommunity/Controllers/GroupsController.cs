@@ -79,7 +79,8 @@ namespace FinkiCommunity.Controllers
                     CourseType = (Enums.CourseType)Enum.Parse(typeof(Enums.CourseType), model.CourseType),
                     StudyPrograms = studyPrograms,
                     NumberOfPosts = 0,
-                    NumberOfReplies = 0
+                    NumberOfReplies = 0,
+                    CoursePictureUrl = DefaultImagePath.DEFAULT_GROUP_IMAGE
                 };
 
                 db.Groups.Add(group);

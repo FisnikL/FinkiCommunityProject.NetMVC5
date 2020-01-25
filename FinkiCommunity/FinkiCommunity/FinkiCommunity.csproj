@@ -231,6 +231,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\DefaultImagePath.cs" />
     <Compile Include="Models\Enums\Enums.cs" />
     <Compile Include="Models\Group\CreateGroupModelGet.cs" />
     <Compile Include="Models\Group\CreateGroupModelPost.cs" />
@@ -418,6 +419,7 @@
     <Content Include="Content\DataTables\images\sort_desc.png" />
     <Content Include="Content\DataTables\images\sort_desc_disabled.png" />
     <Content Include="Content\DataTables\swf\flashExport.swf" />
+    <Content Include="Content\group-images\DEFAULT_GROUP_IMAGE.png" />
     <Content Include="Content\profile-images\FEMALE_AVATAR.png" />
     <Content Include="Content\profile-images\MALE_AVATAR.png" />
     <Content Include="Content\themes\base\accordion.css" />
@@ -618,7 +620,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\group-images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

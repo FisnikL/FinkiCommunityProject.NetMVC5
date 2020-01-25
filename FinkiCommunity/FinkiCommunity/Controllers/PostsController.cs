@@ -52,6 +52,9 @@ namespace FinkiCommunity.Controllers
         {
             if (ModelState.IsValid)
             {
+                ApplicationUser user = db.Users.Find(User.Identity.GetUserId());
+                Group group = db.Groups.Where(g => g.CourseCode == newPostModel.CourseCode).First();
+
                 Post post = new Post()
                 {
                     Title = newPostModel.Title,
@@ -59,11 +62,14 @@ namespace FinkiCommunity.Controllers
                     Created = DateTime.Now,
                     NumberOfLikes = 0,
                     NumberOfReplies = 0,
-                    UserOwner = db.Users.Find(User.Identity.GetUserId()),
-                    Group = db.Groups.Where(g => g.CourseCode == newPostModel.CourseCode).First()
+                    UserOwner = user,
+                    Group = group
                 };
 
                 db.Posts.Add(post);
+                user.Rating = user.Rating + 1;
+                db.Entry(user).State = EntityState.Modified;
+
                 db.SaveChanges();
 
                 return RedirectToAction("Posts", "Groups", new { id = newPostModel.CourseCode });

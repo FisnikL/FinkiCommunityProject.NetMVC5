@@ -77,7 +77,7 @@
                 <div>
                     <button>@Html.ActionLink(homePost.NumberOfReplies + " " + (homePost.NumberOfReplies == 1 ? "Reply" : "Replies"), "Details", "Posts", new { id = homePost.Id }, null)</button>
                 </div>
-                <div style="display: flex">
+                <div>
                     <div>
                         @if (homePost.UserOwner.ProfilePictureUrl != null)
                         {
@@ -88,6 +88,9 @@
                     </div>
                     <div>
                         Posted by: @Html.ActionLink(homePost.UserOwner.UserName, "Details", "Users", new { id = homePost.UserOwner.UserName }, null)
+                    </div>
+                    <div>
+                        Rating: @homePost.UserOwner.Rating
                     </div>
                 </div>
             </div>

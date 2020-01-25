@@ -59,19 +59,21 @@ namespace FinkiCommunity.Controllers
             if (ModelState.IsValid)
             {
                 Post post = db.Posts.Find(newReplyModel.PostId);
+                ApplicationUser user = db.Users.Find(User.Identity.GetUserId());
 
                 Reply reply = new Reply()
                 {
                     Content = newReplyModel.Content,
                     Created = DateTime.Now,
                     NumberOfLikes = 0,
-                    UserOwner = db.Users.Find(User.Identity.GetUserId()),
+                    UserOwner = user,
                     ToPost = post
                 };
 
                 post.NumberOfReplies++;
-
                 db.Replies.Add(reply);
+                user.Rating = user.Rating + 2;
+                db.Entry(user).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Details", "Posts", new { id = newReplyModel.PostId });
             }

@@ -13,5 +13,6 @@ namespace FinkiCommunity.Models
         public string Gender { get; set; }
         public string ProfilePictureUrl { get; set; }
         public bool IsHisHerProfile { get; set; }
+        public int Rating { get; set; }
     }
 }
