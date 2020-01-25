@@ -229,6 +229,10 @@
     <Compile Include="Migrations\202001242057462_add rating.Designer.cs">
       <DependentUpon>202001242057462_add rating.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202001250110588_Change group model.cs" />
+    <Compile Include="Migrations\202001250110588_Change group model.Designer.cs">
+      <DependentUpon>202001250110588_Change group model.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DefaultImagePath.cs" />
@@ -664,6 +668,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202001242057462_add rating.resx">
       <DependentUpon>202001242057462_add rating.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001250110588_Change group model.resx">
+      <DependentUpon>202001250110588_Change group model.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

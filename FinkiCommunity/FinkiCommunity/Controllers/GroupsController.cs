@@ -77,7 +77,7 @@ namespace FinkiCommunity.Controllers
                     StudyYear = (Enums.StudyYear) Enum.Parse(typeof(Enums.StudyYear), model.StudyYear),
                     Semester = (Enums.Semester)Enum.Parse(typeof(Enums.Semester), model.Semester),
                     CourseType = (Enums.CourseType)Enum.Parse(typeof(Enums.CourseType), model.CourseType),
-                    StudyPrograms = studyPrograms,
+                    //StudyPrograms = studyPrograms,
                     NumberOfPosts = 0,
                     NumberOfReplies = 0,
                     CoursePictureUrl = DefaultImagePath.DEFAULT_GROUP_IMAGE
@@ -132,7 +132,9 @@ namespace FinkiCommunity.Controllers
         {
             if (ModelState.IsValid)
             {
-                Group group = db.Groups.Include(g => g.StudyPrograms).Where(g => g.CourseCode == editGroupModel.CourseCode).First();
+                Group group = db.Groups
+                    //.Include(g => g.StudyPrograms)
+                    .Where(g => g.CourseCode == editGroupModel.CourseCode).First();
                 
                 group.CourseName = editGroupModel.CourseName;
                 group.CourseDescription = editGroupModel.CourseDescription;

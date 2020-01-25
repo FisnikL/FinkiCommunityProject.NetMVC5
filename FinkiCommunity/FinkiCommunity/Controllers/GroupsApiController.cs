@@ -89,12 +89,23 @@ namespace FinkiCommunity.Controllers
         [ResponseType(typeof(Group))]
         public IHttpActionResult DeleteGroup(int id)
         {
-            Group group = db.Groups.Find(id);
+            Group group = db.Groups
+                .Include(g => g.Posts)
+                .Include("Posts.Replies")
+                .Where(g => g.Id == id)
+                .FirstOrDefault();
+
             if (group == null)
             {
                 return NotFound();
             }
 
+            foreach(Post post in group.Posts)
+            {
+                db.Replies.RemoveRange(post.Replies);
+            }
+            db.Posts.RemoveRange(group.Posts);
+            // group.StudyPrograms = new List<StudyProgram>();
             db.Groups.Remove(group);
             db.SaveChanges();
 

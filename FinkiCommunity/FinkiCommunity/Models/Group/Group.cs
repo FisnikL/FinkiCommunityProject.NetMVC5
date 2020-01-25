@@ -25,9 +25,9 @@ namespace FinkiCommunity.Models
         [Display(Name = "Course Type")]
         public Enums.CourseType CourseType { get; set; }
 
-        [Required]
-        [Display(Name = "Study Programs")]
-        public ICollection<StudyProgram> StudyPrograms { get; set; }
+        //[Required]
+        //[Display(Name = "Study Programs")]
+        //public ICollection<StudyProgram> StudyPrograms { get; set; }
         public int NumberOfPosts { get; set; }
         public int NumberOfReplies { get; set; }
         public ICollection<Post> Posts { get; set; }

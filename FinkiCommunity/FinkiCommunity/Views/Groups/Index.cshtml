@@ -99,15 +99,16 @@
             $(".js-delete").on("click", function () {
                 var button = $(this);
                 //console.log(button.attr("data-group-id"));
-                button.closest("tr").remove();
-                //$.ajax({
-                //    method: "DELETE",
-                //    url: "api/GroupsApi/" + button.attr("data-group-id"),
-                //    success: function () {
-                //        //table.row(button.parents("tr")).remove().draw();
-                //        console.log(table);
-                //    }
-                //});
+                
+                $.ajax({
+                    method: "DELETE",
+                    url: "api/GroupsApi/" + button.attr("data-group-id"),
+                    success: function () {
+                        //table.row(button.parents("tr")).remove().draw();
+                        // console.log(table);
+                        button.closest("tr").remove();
+                    }
+                });
             });
         });
     </script>
