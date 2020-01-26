@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<FinkiCommunity.Models.ApplicationUser>
+@using System.Web.Security
 
 @{
     ViewBag.Title = "Index";
@@ -53,7 +54,16 @@
                             @user.Email
                         </td>
                         <td>
-                            DROPDOWN LIST FOR ROLES
+                            DROP DOWN LIST FOR ROLES
+                            @*@{
+                                
+                                var selectList = new List<SelectListItem> {
+                                                    new SelectListItem{ Text = "Admin", Value = "Admin", Selected = (roles[0] == "Admin")},
+                                                    new SelectListItem{ Text = "Moderator", Value = "Moderator", Selected = (roles[1] == "Moderator")},
+                                                    new SelectListItem{ Text = "User", Value = "User", Selected = (roles[2] == "User") }
+                                                };
+                            }
+                            @Html.DropDownList("Roles", selectList, new { @class = "form-control"})*@
                         </td>
                         <td>
                             @using (Html.BeginForm("Block", "Users", FormMethod.Post))

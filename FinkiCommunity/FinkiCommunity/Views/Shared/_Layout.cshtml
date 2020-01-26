@@ -22,10 +22,10 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Groups", "Index", "Groups")</li>
-                    <li>@Html.ActionLink("Posts", "Index", "Posts")</li>
                     @if (User.IsInRole(FinkiCommunity.Models.RoleName.Admin))
                     {
+                        <li>@Html.ActionLink("Groups", "Index", "Groups")</li>
+                        <li>@Html.ActionLink("Posts", "Index", "Posts")</li>
                         <li>@Html.ActionLink("Study Programs", "Index", "StudyPrograms")</li>
                         <li>@Html.ActionLink("Users", "Index", "Users")</li>
                     }
