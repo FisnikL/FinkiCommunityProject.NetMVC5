@@ -16,6 +16,7 @@ namespace FinkiCommunity.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -90,6 +91,20 @@ namespace FinkiCommunity.Controllers
                     ModelState.AddModelError("", "Invalid login attempt.");
                     return View(model);
             }
+        }
+
+        [HttpPost]
+        [Authorize(Roles = RoleName.Admin)]
+        public ActionResult ChangeRole(ChangeRoleModel model)
+        {
+            ApplicationUser user = UserManager.FindById(model.UserId);
+            string oldRole = user.Roles.ToList()[0].RoleId;
+            oldRole = db.Roles.Where(r => r.Id == oldRole).First().Name;
+
+            UserManager.RemoveFromRole(user.Id, oldRole);
+            UserManager.AddToRole(user.Id, model.Role);
+
+            return RedirectToAction("Index", "Users");
         }
 
         //

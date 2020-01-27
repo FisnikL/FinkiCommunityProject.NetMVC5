@@ -6,6 +6,7 @@ using Microsoft.AspNet.Identity;
 using System.Data.Entity;
 using System.IO;
 using System;
+using System.Collections.Generic;
 
 namespace FinkiCommunity.Controllers
 {
@@ -16,7 +17,62 @@ namespace FinkiCommunity.Controllers
         // GET: Users
         public ActionResult Index()
         {
-            return View(db.Users.ToList());
+            //var model = db.Users.Select(user => new UserIndexModel
+            //{
+
+            //    Id = user.Id,
+            //    UserName = user.UserName,
+            //    FirstName = user.FirstName,
+            //    LastName = user.LastName,
+            //    Email = user.Email,
+            //    Role = db.Roles.Find(Convert.ToInt16(user.Roles.ToList()[0].RoleId)).Name,
+            //    IsActive = user.IsActive
+            //});
+            var users = db.Users;
+            List<UserIndexModel> model = new List<UserIndexModel>();
+
+
+            foreach (ApplicationUser user in users)
+            {
+                UserIndexModel u = new UserIndexModel();
+                u.Id = user.Id;
+                u.UserName = user.UserName;
+                u.FirstName = user.FirstName;
+                u.LastName = user.LastName;
+                u.Email = user.Email;
+                u.IsActive = user.IsActive;
+
+                string role = user.Roles.ToList()[0].RoleId;
+                role = db.Roles.Where(r => r.Id == role).First().Name;
+                //u.Role = db.Roles.Where(r => r.Id == role).First().Name;
+                u.Role = role;
+
+                u.RolesList = new List<SelectListItem>
+                {
+                    new SelectListItem
+                    {
+                        Text = "Admin",
+                        Value = "Admin",
+                        Selected = role == "Admin"
+                    },
+                    new SelectListItem
+                    {
+                        Text = "Moderator",
+                        Value = "Moderator",
+                        Selected = role == "Moderator"
+                    },
+                    new SelectListItem
+                    {
+                        Text = "User",
+                        Value = "User",
+                        Selected = role == "User"
+                    }
+                };
+
+                model.Add(u);
+            }
+
+            return View(model);
         }
 
         // GET: Users/Details/username

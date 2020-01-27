@@ -41,6 +41,11 @@ namespace FinkiCommunity.Controllers
         // GET: Posts/Create/{CourseName}
         public ActionResult Create(string id)
         {
+            var user = db.Users.Find(User.Identity.GetUserId());
+            if (!user.IsActive)
+            {
+                return View("NoPermissionToPost");
+            }
             ViewBag.CourseCode = id;
             return View();
         }
@@ -50,9 +55,15 @@ namespace FinkiCommunity.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(NewPostModel newPostModel)
         {
+            var user = db.Users.Find(User.Identity.GetUserId());
+            if (!user.IsActive)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+            }
+
             if (ModelState.IsValid)
             {
-                ApplicationUser user = db.Users.Find(User.Identity.GetUserId());
+                // ApplicationUser user = db.Users.Find(User.Identity.GetUserId());
                 Group group = db.Groups.Where(g => g.CourseCode == newPostModel.CourseCode).First();
 
                 Post post = new Post()

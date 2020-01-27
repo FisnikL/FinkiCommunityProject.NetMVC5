@@ -148,6 +148,11 @@ namespace FinkiCommunity.Controllers
         // GET: Groups/Posts/{CourseName}
         public ActionResult Posts(string id)
         {
+            if(id == null)
+            {
+                RedirectToAction("Index", "Home");
+            }
+
             // In fact group
             var model = db.Groups.Include(g => g.Posts).Where(g => g.CourseCode == id).First();
             model.Posts = model.Posts.OrderByDescending(post => post.Created).ToList();
