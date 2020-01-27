@@ -1,4 +1,6 @@
 ﻿@model FinkiCommunity.Models.Group
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
     ViewBag.Title = "Posts";
@@ -19,7 +21,7 @@
 }
 
 <div style="margin-top: 10px">
-    @Html.ActionLink("Create New Post", "Create", "Posts", new { id = Model.CourseCode },  null)
+    @Html.ActionLink("Create New Post", "Create", "Posts", new { id = Model.CourseCode }, null)
 </div>
 <div>
     @using (Html.BeginForm("SearchGroupsPosts", "Groups", FormMethod.Get))
@@ -80,4 +82,3 @@
 
     </tbody>
 </table>
-

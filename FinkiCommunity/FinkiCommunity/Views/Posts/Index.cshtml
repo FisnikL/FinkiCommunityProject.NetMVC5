@@ -47,11 +47,10 @@
             @Html.DisplayFor(modelItem => item.NumberOfReplies)
         </td>
         <td>
-            @Html.ActionLink(item.UserOwner.UserName, "Detail", "Users", new { id = item.UserOwner.UserName}, null)
+            @Html.ActionLink(item.UserOwner.UserName, "Details", "Users", new { id = item.UserOwner.UserName}, null)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.Id })
         </td>
     </tr>

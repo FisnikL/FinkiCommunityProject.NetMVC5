@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using FinkiCommunity.Models;
+using PagedList;
 
 namespace FinkiCommunity.Controllers
 {
