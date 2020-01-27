@@ -156,7 +156,20 @@ namespace FinkiCommunity.Controllers
 
             // In fact group
             var model = db.Groups.Include(g => g.Posts).Where(g => g.CourseCode == id).First();
-            model.Posts = model.Posts.OrderByDescending(post => post.Created).ToList();
+            model.Posts = model.Posts.OrderByDescending(post => post.Created)
+                .Select(post => new Post()
+                {
+                    Id = post.Id,
+                    Title = post.Title,
+                    Content = post.Content.Count() <= 20 ? post.Content : post.Content.Substring(0, 20) + "...",
+                    Created = post.Created,
+                    NumberOfLikes = post.NumberOfLikes,
+                    NumberOfReplies = post.NumberOfReplies,
+                    UserOwner = post.UserOwner,
+                    Group = post.Group
+                })
+                .ToList();
+
             return View(model);
         }
 

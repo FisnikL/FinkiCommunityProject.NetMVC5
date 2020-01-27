@@ -243,6 +243,10 @@
     <Compile Include="Migrations\202001250134418_Add IsActive property to ApplicationUser model.Designer.cs">
       <DependentUpon>202001250134418_Add IsActive property to ApplicationUser model.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202001270129499_add user liked.cs" />
+    <Compile Include="Migrations\202001270129499_add user liked.Designer.cs">
+      <DependentUpon>202001270129499_add user liked.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DefaultImagePath.cs" />
@@ -690,6 +694,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202001250134418_Add IsActive property to ApplicationUser model.resx">
       <DependentUpon>202001250134418_Add IsActive property to ApplicationUser model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001270129499_add user liked.resx">
+      <DependentUpon>202001270129499_add user liked.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

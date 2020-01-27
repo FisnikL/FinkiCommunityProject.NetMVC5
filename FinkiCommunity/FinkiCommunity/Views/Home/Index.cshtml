@@ -72,7 +72,7 @@
                     Created: @homePost.Created
                 </div>
                 <div>
-                    <button>@(homePost.NumberOfLikes + " Likes")</button>
+                    <span class="likes"></span><button id=@("like" + homePost.Id)>@(homePost.NumberOfLikes + " Likes")</button>
                 </div>
                 <div>
                     <button>@Html.ActionLink(homePost.NumberOfReplies + " " + (homePost.NumberOfReplies == 1 ? "Reply" : "Replies"), "Details", "Posts", new { id = homePost.Id }, null)</button>
@@ -97,3 +97,13 @@
         }
     </div>
 </div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $("#like").on("click", function () {
+                alert("button clicked");
+            });
+        });
+    </script>    
+}

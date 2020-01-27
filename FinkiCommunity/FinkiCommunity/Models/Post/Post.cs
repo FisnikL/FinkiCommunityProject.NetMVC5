@@ -11,7 +11,7 @@ namespace FinkiCommunity.Models
         public DateTime Created { get; set; }
         public int NumberOfLikes { get; set; }
         public int NumberOfReplies { get; set; }
-        // public IEnumerable<ApplicationUser> UsersLiked { get; set; }
+        public IEnumerable<ApplicationUser> UsersLiked { get; set; }
         public ApplicationUser UserOwner { get; set; }
         public ICollection<Reply> Replies { get; set; }
         public Group Group { get; set; }
