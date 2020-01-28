@@ -1,103 +1,117 @@
 ﻿@model FinkiCommunity.Models.HomePageModel
-
 @{
     ViewBag.Title = "Home Page";
 }
-
-<div style="display: flex; justify-content: space-between;">
-    <div id="groups-container" style="width: 200px; margin-top: 50px; border: 2px solid red; padding: 10px; flex-grow: 1">
+<div class="row mt-4">
+    <div class="col-lg-4 col-md-4 border p-2">
         @using (Html.BeginForm("SearchGroups", "Home", FormMethod.Get))
         {
-            <div class="form-group">
-                @Html.TextBox("groupTerm", null, new { @class = "form-control" })
-                <button type="submit" class="form-control">Search</button>
-            </div>  
-        }
-        <div>
-            GROUPS:
-        </div>
-        @foreach (var homeGroup in Model.HomeGroups)
-        {
-            <div style="display: flex; border: 1px solid red; margin: 10px; padding: 10px;">
-                <div style="margin-right: 5px">
-                    <div style="width: 50px; height: 50px">
-                        <a href=@("/Groups/Posts/" + @homeGroup.CourseCode)>
-                            @if (homeGroup.CoursePictureUrl != null)
-                            {
-                                <img src="@Url.Content(homeGroup.CoursePictureUrl)" width="50" height="50" />
-                            }
-                        </a>
-                    </div>
-                </div>
-                <div style="margin-bottom: 10px;">
-                    <a href="@("/Groups/Posts/" + homeGroup.CourseCode)">
-                        <div class="homeGroupName">
-                            @homeGroup.CourseName
-                        </div>
-                        <div class="homeGroupDescription">
-                            @homeGroup.CourseDescription
-                        </div>
-                    </a>
+            <div class="input-group mb-3">
+                @Html.TextBox("groupTerm", null, new { @class = "form-control", placeholder = "Search group" })
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button">Search</button>
                 </div>
             </div>
         }
+        <ul class="list-group">
+            @foreach (var homeGroup in Model.HomeGroups)
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <a href=@("/Groups/Posts/" + @homeGroup.CourseCode)>
+                        @homeGroup.CourseDescription
+                    </a>
+                    <div class="badge badge-primary badge-pill">
+                        <a href="@("/Groups/Posts/" + homeGroup.CourseCode)">
+                            <div class="text-white">
+                                @homeGroup.CourseName
+                            </div>
+                        </a>
+                    </div>
+                </li>
+                @*<div style="display: flex; border: 1px solid grey; margin: 10px; padding: 10px;">
+                        <div style="margin-right: 5px">
+                            <div style="width: 50px; height: 50px">
+                                <a href=@("/Groups/Posts/" + @homeGroup.CourseCode)>
+                                    @if (homeGroup.CoursePictureUrl != null)
+                                    {
+                                        <img src="@Url.Content(homeGroup.CoursePictureUrl)" width="50" height="50" />
+                                    }
+                                </a>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 10px;">
+                            <a href="@("/Groups/Posts/" + homeGroup.CourseCode)">
+                                <div class="homeGroupName">
+                                    @homeGroup.CourseName
+                                </div>
+                                <div class="homeGroupDescription">
+                                    @homeGroup.CourseDescription
+                                </div>
+                            </a>
+                        </div>
+                    </div>*@
+            }
+        </ul>
+
     </div>
-    
-    <div id="posts-container" style="border: 1px solid black; width: 200px; margin-top: 50px; flex-grow: 10">
+    <div class="col-lg-8 col-md-8">
         @using (Html.BeginForm("SearchPosts", "Home", FormMethod.Get))
         {
-        <div class="form-group">
-            @Html.TextBox("postTerm", null, new { @class = "form-control" })
-            <button type="submit" class="btn btn-default">Search</button>
-        </div>
-            
+            <div class="input-group mb-3">
+                @Html.TextBox("postTerm", null, new { @class = "form-control", placeholder = "Search post" })
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button">Search</button>
+                </div>
+            </div>
+
         }
-        <div style="padding-left: 20px; padding-top: 20px">
-            <b>LATEST POSTS:</b>
-        </div>
+
         @foreach (var homePost in Model.HomePosts)
         {
-
-            <div style="border: 1px solid green; margin: 20px; padding: 20px">
-                <div class="belongsToGroup">
-                    Group: @Html.ActionLink(homePost.Group.CourseName, "Posts", "Groups", new { id = homePost.Group.CourseCode }, null)
+            <div class="post d-flex border mt-2">
+                <div class="p-4 user-info">
+                    @if (homePost.UserOwner.ProfilePictureUrl != null)
+                    {
+                        <a href="@("/Users/Details/" + homePost.UserOwner.UserName)">
+                            <img class="rounded-circle" src="@Url.Content(homePost.UserOwner.ProfilePictureUrl)" width="50" height="50" />
+                        </a>
+                    }
+                    <hr>
+                    @Html.ActionLink(homePost.UserOwner.UserName, "Details", "Users", new { id =
+                    homePost.UserOwner.UserName }, null)
+                    <br>
+                    <span class="badge badge-pill badge-success">
+                        @homePost.UserOwner.Rating
+                    </span>
                 </div>
-                <div class="homePostTitle">
-                    Title: @Html.ActionLink(homePost.Title, "Details", "Posts", new { id = homePost.Id }, null)
+                <div class="post-content pt-2 flex-grow-1">
+                    <h4>
+                        @Html.ActionLink(homePost.Title, "Details", "Posts", new { id = homePost.Id }, null)
+                    </h4>
+                    <p class="p-2">
+                        @homePost.Content
+                    </p>
+                    <p>@homePost.Created</p>
                 </div>
-                <div class="homeGroupName">
-                    Content: @homePost.Content
-                </div>
-                <div class="homePostContent">
-                    Created: @homePost.Created
-                </div>
-                <div>
-                    <span class="likes"></span><button id=@("like" + homePost.Id)>@(homePost.NumberOfLikes + " Likes")</button>
-                </div>
-                <div>
-                    <button>@Html.ActionLink(homePost.NumberOfReplies + " " + (homePost.NumberOfReplies == 1 ? "Reply" : "Replies"), "Details", "Posts", new { id = homePost.Id }, null)</button>
-                </div>
-                <div>
+                <div class="post-info d-flex flex-column justify-content-between">
+                    <p class="font-weight-bold align-self-center">
+                        @Html.ActionLink(homePost.Group.CourseName, "Posts", "Groups", new { id =
+        homePost.Group.CourseCode }, null)
+                    </p>
                     <div>
-                        @if (homePost.UserOwner.ProfilePictureUrl != null)
-                        {
-                            <a href="@("/Users/Details/" + homePost.UserOwner.UserName)">
-                                <img src="@Url.Content(homePost.UserOwner.ProfilePictureUrl)" width="50" height="50" />
-                            </a>
-                        }
-                    </div>
-                    <div>
-                        Posted by: @Html.ActionLink(homePost.UserOwner.UserName, "Details", "Users", new { id = homePost.UserOwner.UserName }, null)
-                    </div>
-                    <div>
-                        Rating: @homePost.UserOwner.Rating
+                        @*<p>@(homePost.NumberOfLikes + " Likes")</p>*@
+                        @*<a href="#">*@
+                        <span class="badge badge-pill badge-warning p-2 mb-1">
+                            @Html.ActionLink(homePost.NumberOfReplies + " " + (homePost.NumberOfReplies == 1 ?
+                            "Reply" : "Replies"), "Details", "Posts", new { id = homePost.Id }, null)
+                        </span>
+                        @*</a>*@
                     </div>
                 </div>
             </div>
         }
     </div>
 </div>
-
 @section Scripts{
     <script>
         $(document).ready(function () {
@@ -105,5 +119,5 @@
                 alert("button clicked");
             });
         });
-    </script>    
+    </script>
 }

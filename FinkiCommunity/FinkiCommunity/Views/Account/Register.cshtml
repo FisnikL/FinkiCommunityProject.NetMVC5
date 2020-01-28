@@ -1,79 +1,80 @@
 ﻿@model FinkiCommunity.Models.RegisterViewModel
 @{
+    /**/
+
     ViewBag.Title = "Register";
 }
+@*<h2>@ViewBag.Title.</h2>*@
 
-<h2>@ViewBag.Title.</h2>
-
-@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form"}))
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
-    <h4>Create a new account.</h4>
-    <hr />
-    @Html.ValidationSummary("", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(m => m.FirstName, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.LastName, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
-        </div>
-    </div>
-    @*<div class="form-group">
-            @Html.LabelFor(m => m.Birthdate, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(m => m.Birthdate, new { @class = "form-control" })
-            </div>
-        </div>*@
-    <div class="form-group">
-        @Html.LabelFor(m => m.Gender, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            Female
-            @Html.RadioButtonFor(model => model.Gender, "F")
-            Male
-            @Html.RadioButtonFor(model => model.Gender, "M")
-        </div>
-    </div>
+    <div class="row justify-content-center pb-5">
+        <div class="col-md-6">
+            <div class="card mt-4">
+                <header class="card-header">
+                    <h4 class="card-title mt-2 text-center">Register</h4>
+                </header>
+                <article class="card-body">
+                    <form>
+                        <div class="form-row">
+                            <div class="col form-group">
+                                @Html.LabelFor(m => m.FirstName, new { @class = "control-label" })
+                                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+                            </div> <!-- form-group end.// -->
+                            <div class="col form-group">
+                                @Html.LabelFor(m => m.LastName)
+                                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+                            </div> <!-- form-group end.// -->
+                        </div> <!-- form-row end.// -->
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.UserName, new { @class = "control-label" })
+                            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                        </div> <!-- form-group end.// -->
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Email, new { @class = "control-label" })
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                            <small class="form-text text-muted">
+                                We'll never share your email with anyone
+                                else.
+                            </small>
+                        </div> <!-- form-group end.// -->
+                        <div class="form-group">
+                            @* @Html.LabelFor(m => m.Gender, new { @class = "control-label" })*@
+                            <label class="form-check form-check-inline">
+                                <span class="pr-2">
+                                    Male
+                                </span>
+                                @Html.RadioButtonFor(model => model.Gender, "M")
+                            </label>
+                            <label class="form-check form-check-inline">
+                                <span class="pr-2">
+                                    Female
+                                </span>
+                                @Html.RadioButtonFor(model => model.Gender, "F")
+                            </label>
+                        </div> <!-- form-group end.// -->
 
-    @*<div class="forum-group">
-       @Html.LabelFor(m => m.ProfilePicture, new { @class="col-md-2 control-label" })
-       <div class="col-md-10">
-           <input type="file" name="ProfilePicture" required class="form-control"/>
-       </div>
-    </div>*@
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Register" />
-        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Password, new { @class = "control-label" })
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                        </div> <!-- form-group end.// -->
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "control-label" })
+                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                        </div> <!-- form-group end.// -->
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-block"> Register </button>
+                        </div> <!-- form-group// -->
+                        <small class="text-muted">
+                            By clicking the 'Sign Up' button, you confirm that you accept our
+                            <br> Terms of use and Privacy Policy.
+                        </small>
+                    </form>
+                </article> <!-- card-body end .// -->
+                <div class="border-top card-body text-center">Have an account? @Html.ActionLink("Log In", "Login")</div>
+            </div> <!-- card.// -->
+        </div> <!-- col.//-->
     </div>
 }
 

@@ -3,25 +3,23 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("FINKI Community", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+            @Html.ActionLink("FINKI Community", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">@Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })</li>
+                    @*<li class="nav-item">@Html.ActionLink("Groups", "Index", "Groups", null, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Posts", "Index", "Posts", null, new { @class = "nav-link" })</li>*@
                     @if (User.IsInRole(FinkiCommunity.Models.RoleName.Admin))
                     {
                         <li>@Html.ActionLink("Groups", "Index", "Groups")</li>
@@ -29,20 +27,43 @@
                         <li>@Html.ActionLink("Study Programs", "Index", "StudyPrograms")</li>
                         <li>@Html.ActionLink("Users", "Index", "Users")</li>
                     }
-
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
-    </div>
+        @*<div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("FINKI Community", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Groups", "Index", "Groups")</li>
+                        <li>@Html.ActionLink("Posts", "Index", "Posts")</li>
+                        @if (User.IsInRole(FinkiCommunity.Models.RoleName.Admin))
+                        {
+                            <li>@Html.ActionLink("Study Programs", "Index", "StudyPrograms")</li>
+                            <li>@Html.ActionLink("Users", "Index", "Users")</li>
+                        }
+                    </ul>
+                    @Html.Partial("_LoginPartial")
+                </div>
+            </div>*@
+    </nav>
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
-            <p><b>&copy; @DateTime.Now.Year - FINKI Community Forum</b></p>
-        </footer>
     </div>
-
+    <footer class="py-2 bg-dark fixed-bottom">
+        <div class="container text-center text-white">
+            <p>Copyright &copy; FINKI Community 2020</p>
+        </div>
+    </footer>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)

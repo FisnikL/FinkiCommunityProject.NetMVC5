@@ -1,58 +1,57 @@
 ﻿@model IEnumerable<FinkiCommunity.Models.Post>
-
 @{
-    ViewBag.Title = "Index";
+                /**/
+
+                ViewBag.Title = "Index";
 }
+<div class="d-flex justify-content-end mt-3 mr-3">
+    <button class="btn btn-success justify-content-end">
+        @Html.ActionLink("Create new post", "Create", "PostsController", new { @class = "text-white" })
+    </button>
+</div>
 
-<h2>Index</h2>
-
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Content)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Created)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NumberOfLikes)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NumberOfReplies)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserOwner.UserName)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Content)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Created)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NumberOfLikes)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NumberOfReplies)
-        </td>
-        <td>
-            @Html.ActionLink(item.UserOwner.UserName, "Details", "Users", new { id = item.UserOwner.UserName}, null)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
-</table>
+<div class="col-lg-12 col-md-12 mb-5">
+    @foreach (var homePost in Model)
+    {
+        <div class="post d-flex border mt-2">
+            <div class="p-4 user-info">
+                @if (homePost.UserOwner.ProfilePictureUrl != null)
+                {
+                    <a href="@("/Users/Details/" + homePost.UserOwner.UserName)">
+                        <img class="rounded-circle" src="@Url.Content(homePost.UserOwner.ProfilePictureUrl)" width="50" height="50" />
+                    </a>
+                }
+                <hr>
+                @Html.ActionLink(homePost.UserOwner.UserName, "Details", "Users", new { id =
+                homePost.UserOwner.UserName }, null)
+                <br>
+                <span class="badge badge-pill badge-success">
+                    @homePost.UserOwner.Rating
+                </span>
+            </div>
+            <div class="post-content pt-2 flex-grow-1">
+                <h4>
+                    @Html.ActionLink(homePost.Title, "Details", "Posts", new { id = homePost.Id }, null)
+                </h4>
+                <p class="p-2">
+                    @homePost.Content
+                </p>
+                <p>@homePost.Created</p>
+            </div>
+            <div class="post-info d-flex flex-column justify-content-end">
+                <div>
+                    @*<p>@(homePost.NumberOfLikes + " Likes")</p>*@
+                    @*<a href="#">*@
+                    <span class="badge badge-pill badge-warning p-2 mb-1">
+                        @Html.ActionLink(homePost.NumberOfReplies + " " + (homePost.NumberOfReplies == 1 ?
+                        "Reply" : "Replies"), "Details", "Posts", new { id = homePost.Id }, null)
+                    </span>
+                    @*</a>*@
+                </div>
+                @Html.ActionLink("Edit", "Edit", new { id = homePost.Id })
+                @Html.ActionLink("Details", "Details", new { id = homePost.Id })
+                @Html.ActionLink("Delete", "Delete", new { id = homePost.Id })
+            </div>
+        </div>
+    }
+</div>
