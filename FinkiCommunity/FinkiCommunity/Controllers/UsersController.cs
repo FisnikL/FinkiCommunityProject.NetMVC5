@@ -190,7 +190,13 @@ namespace FinkiCommunity.Controllers
         [HttpPost]
         public ActionResult UpdateProfilePicture(UpdateProfilePictureModel updateProfilePictureModel)
         {
+            
             var user = db.Users.Find(User.Identity.GetUserId());
+
+            if (updateProfilePictureModel.ProfilePicture == null)
+            {
+                return RedirectToAction("Details", new { id = user.UserName });
+            }
 
             string fileName = Path.GetFileNameWithoutExtension(updateProfilePictureModel.ProfilePicture.FileName);
             string extension = Path.GetExtension(updateProfilePictureModel.ProfilePicture.FileName);

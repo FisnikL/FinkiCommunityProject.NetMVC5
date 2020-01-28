@@ -178,6 +178,11 @@ namespace FinkiCommunity.Controllers
         [HttpPost]
         public ActionResult UpdateGroupPicture(UpdateGroupPictureModel updateGroupPictureModel)
         {
+            if(updateGroupPictureModel.GroupPicture == null)
+            {
+                return RedirectToAction("Details", new {id = updateGroupPictureModel.CourseCode });
+            }
+
             Group group = db.Groups.Where(g => g.CourseCode == updateGroupPictureModel.CourseCode).First();
 
             string fileName = Path.GetFileNameWithoutExtension(updateGroupPictureModel.GroupPicture.FileName);
