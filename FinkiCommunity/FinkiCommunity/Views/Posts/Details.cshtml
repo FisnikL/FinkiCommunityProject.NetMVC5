@@ -19,7 +19,7 @@
             }
         </div>  
         <div style="margin-top: 10px;">
-            @Html.ActionLink("Edit Post", "Edit", "Posts", new { id = Model.Id }, new { @class = "btn btn-default" })
+            @Html.ActionLink("Edit Post", "Edit", "Posts", new { id = Model.Id }, new { @class = "btn btn-warning" })
         </div>
         
     }
@@ -38,7 +38,7 @@
     </div>
 
     <div style="margin-top: 20px">
-        @Html.ActionLink("REPLY", "Create", "Replies", new { id = Model.Id }, new { @class = "btn btn-default" })
+        @Html.ActionLink("REPLY", "Create", "Replies", new { id = Model.Id }, new { @class = "btn btn-primary" })
     </div>
 
     </>

@@ -29,7 +29,7 @@ namespace FinkiCommunity.Controllers
                 {
                     Id = post.Id,
                     Title = post.Title,
-                    Content = post.Content.Length <= 20 ? post.Content : post.Content.Substring(0, 20) + "...",
+                    Content = post.Content.Length <= 80 ? post.Content : post.Content.Substring(0, 80) + "...",
                     Created = post.Created,
                     NumberOfLikes = post.NumberOfLikes,
                     NumberOfReplies = post.NumberOfReplies,

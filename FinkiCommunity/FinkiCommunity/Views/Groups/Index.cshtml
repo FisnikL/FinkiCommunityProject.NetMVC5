@@ -36,12 +36,12 @@
             <th>
                 @Html.DisplayNameFor(model => model.CourseType)
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.NumberOfPosts)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.NumberOfReplies)
-            </th>
+            </th>*@
             <th></th>
         </tr>
     </thead>
@@ -68,12 +68,12 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.CourseType)
                 </td>
-                <td>
+                @*<td>
                     @Html.DisplayFor(modelItem => item.NumberOfPosts)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.NumberOfReplies)
-                </td>
+                </td>*@
                 <td>
                     @if (User.IsInRole(FinkiCommunity.Models.RoleName.Admin) || User.IsInRole(FinkiCommunity.Models.RoleName.Moderator))
                     {
@@ -83,7 +83,7 @@
                     {
                         <span>|</span>
                         @*@Html.ActionLink("Delete", "Delete", new { id = item.CourseCode })*@
-                        <button data-group-id="@item.Id" class="btn btn-danger js-delete">Delete</button>
+                        <button data-group-id="@item.Id" class="btn btn-danger js-delete"><i class="fa fa-trash"></i></button>
                     }
 
                 </td>

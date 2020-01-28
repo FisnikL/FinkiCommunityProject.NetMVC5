@@ -4,38 +4,46 @@
     ViewBag.Title = "Detail";
 }
 
-<h2>Detail!!!</h2>
+<h2>User Details</h2>
+
+
 
 <div class="user-detail" style="display:flex">
-    <div style="flex-grow:5; border: 1px solid black;">
-        <div style=" height: 50px;">
-            @Model.UserName
-        </div>
-        <div style="height: 50px;">
-            @Model.FirstName
-        </div>
-        <div style="height: 50px;">
-            @Model.LastName
-        </div>
-        <div style="height: 50px;">
-            @Model.Email
-        </div>
-        <div style="height: 50px;">
-            @Model.Gender
-        </div>
-        <div style="height: 50px;">
-            @Model.Birthdate
-        </div>
-        <div>
-            @Model.Role
-        </div>
-        <div>
-            Rating: @Model.Rating
+    <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="@Url.Content(Model.ProfilePictureUrl)" alt="Card image cap">
+        <div class="card-body">
+            <div class="card-text">
+                <p>
+                    Username: @Model.UserName
+                </p>
+                <p>
+                    Name: @Model.FirstName
+                </p>
+                <p>
+                    Surname: @Model.LastName
+                </p>
+                <p>
+                    e-mail: @Model.Email
+                </p>
+                
+                <p>
+                    Gender: @Model.Gender
+                </p>
+                <p>
+                    Birthdate: @Model.Birthdate
+                </p>
+                <p>
+                    Role: @Model.Role
+                </p>
+                <p>
+                    Rating: @Model.Rating
+                </p>
+            </div>
         </div>
     </div>
-    <div style="flex-grow:2; border: 1px solid black;">
+    <div>
         <div id="profile-image-container">
-            <img src="@Url.Content(Model.ProfilePictureUrl)" width="400" height="400" />
+            <img src="@Url.Content(Model.ProfilePictureUrl)" width="100" height="100" />
         </div>
         @if (Model.IsHisHerProfile)
         {
